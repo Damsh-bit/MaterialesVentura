@@ -1,0 +1,32 @@
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=Inter:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-headline: "Barlow Condensed", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-primary: #F5C400;
+  --color-primary-dark: #ccaa00;
+  --color-surface-dark: #0D0D0D;
+  --color-surface-light: #FFFFFF;
+  --color-surface-card: #F5F5F5;
+  --color-surface-border: #E5E5E5;
+  --color-text-main: #111111;
+  --color-text-muted: #555555;
+}
+
+@layer base {
+  body {
+    @apply bg-surface-light text-text-main font-sans antialiased;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-black font-headline font-bold uppercase py-4 px-8 flex items-center justify-center gap-2 transition-all hover:bg-black hover:text-primary;
+  }
+  .btn-outline {
+    @apply border border-text-main text-text-main font-headline font-bold uppercase py-4 px-8 flex items-center justify-center gap-2 transition-all hover:bg-text-main hover:text-white;
+  }
+}

@@ -1,0 +1,170 @@
+import { 
+  Trees, 
+  Layout as LayoutIcon, 
+  Layers, 
+  Ruler, 
+  PencilRuler, 
+  Home, 
+  Fence, 
+  PlusSquare,
+  Search,
+  Filter,
+  ArrowRight,
+  Info
+} from 'lucide-react';
+import { motion } from 'motion/react';
+import { useState } from 'react';
+
+const categories = [
+  "All",
+  "Lumber",
+  "Siding",
+  "Plywood",
+  "Beams",
+  "Roofing",
+  "Fencing"
+];
+
+const allProducts = [
+  { id: 1, name: 'Premium Douglas Fir 2x4', category: 'Lumber', span: 'Madera de Abeto', price: '$4.25 / LF', icon: <Trees />, description: 'Structural grade lumber for residential framing.' },
+  { id: 2, name: 'CDX Plywood 4x8', category: 'Plywood', span: 'Contrachapado', price: '$28.50 / Sheet', icon: <Layers />, description: 'Standard sheathing for roofs and walls.' },
+  { id: 3, name: 'SmartSide Hardboard', category: 'Siding', span: 'Revestimiento', price: '$12.00 / LF', icon: <LayoutIcon />, description: 'Engineered wood siding with advanced durability.' },
+  { id: 4, name: 'Pressure Treated 4x4', category: 'Lumber', span: 'Madera Tratada', price: '$15.75 / LF', icon: <Trees />, description: 'Ground contact rated timber for exterior projects.' },
+  { id: 5, name: 'Glulam Header 3.5x12', category: 'Beams', span: 'Viga Laminada', price: '$45.00 / LF', icon: <Ruler />, description: 'High-strength laminated beam for long spans.' },
+  { id: 6, name: 'CertainTeed Shingles', category: 'Roofing', span: 'Tejas', price: '$35.00 / Bundle', icon: <Home />, description: 'Architectural asphalt shingles in various colors.' },
+  { id: 7, name: 'Cedar Fence Pickets', category: 'Fencing', span: 'Cerca de Cedro', price: '$2.15 / Piece', icon: <Fence />, description: 'Natural rot-resistant cedar for residential fencing.' },
+  { id: 8, name: 'Custom Joist Trusses', category: 'Lumber', span: 'Cerchas', price: 'Quote Required', icon: <PencilRuler />, description: 'Pre-engineered trusses built to project specs.' },
+];
+
+export default function Products() {
+  const [activeCategory, setActiveCategory] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredProducts = allProducts.filter(p => {
+    const matchesCategory = activeCategory === "All" || p.category === activeCategory;
+    const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                         p.span.toLowerCase().includes(searchQuery.toLowerCase());
+    return matchesCategory && matchesSearch;
+  });
+
+  return (
+    <div className="pt-32 pb-24 bg-surface-light min-h-screen">
+      <div className="max-w-7xl mx-auto px-6">
+        <header className="mb-16">
+          <p className="font-mono text-xs font-bold text-primary mb-2 tracking-widest uppercase text-center md:text-left">CATALOGO DE PRODUCTOS</p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <h1 className="font-headline font-extrabold text-5xl md:text-7xl uppercase leading-[0.95] text-text-main tracking-tighter text-center md:text-left">
+              Professional <br/> <span className="text-primary italic">Inventory</span>
+            </h1>
+            <div className="flex flex-col gap-4 w-full md:w-96">
+              <div className="relative">
+                <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" size={18} />
+                <input 
+                  type="text" 
+                  placeholder="SEARCH MATERIALS..."
+                  className="w-full bg-surface-card border border-surface-border p-4 pl-12 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <div className="flex flex-wrap gap-2 mb-12 justify-center md:justify-start">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-6 py-2 font-headline font-bold uppercase tracking-widest text-sm transition-all border ${
+                activeCategory === cat 
+                ? 'bg-black text-primary border-black' 
+                : 'bg-white text-text-muted border-surface-border hover:border-text-main'
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {filteredProducts.map((p, idx) => (
+            <motion.div
+              layout
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.05 }}
+              key={p.id}
+              className="bg-white border border-surface-border p-8 flex flex-col justify-between group hover:border-primary hover:shadow-xl transition-all h-full"
+            >
+              <div>
+                <div className="flex justify-between items-start mb-6">
+                  <div className="text-text-muted group-hover:text-primary transition-colors">
+                    {p.icon}
+                  </div>
+                  <span className="font-mono text-[9px] font-bold text-text-muted px-2 py-0.5 border border-surface-border uppercase tracking-widest">
+                    {p.category}
+                  </span>
+                </div>
+                <h3 className="font-headline font-extrabold text-2xl uppercase text-text-main leading-tight mb-2 group-hover:text-black">
+                  {p.name}
+                </h3>
+                <p className="font-mono text-[10px] text-text-muted uppercase mb-4 tracking-tighter">
+                  {p.span}
+                </p>
+                <p className="text-text-muted text-[13px] leading-relaxed mb-6">
+                  {p.description}
+                </p>
+              </div>
+              
+              <div className="pt-6 border-t border-surface-border">
+                <div className="flex justify-between items-end mb-4">
+                  <div>
+                    <p className="font-mono text-[9px] text-text-muted uppercase mb-1">Market Rate</p>
+                    <p className="font-headline font-bold text-xl text-text-main">{p.price}</p>
+                  </div>
+                  <button className="w-10 h-10 bg-surface-card flex items-center justify-center text-text-main hover:bg-primary hover:text-black transition-colors rounded-sm">
+                    <PlusSquare size={20} />
+                  </button>
+                </div>
+                <button className="w-full btn-primary !py-3 !text-sm flex items-center justify-center gap-2">
+                  ADD TO QUOTE <ArrowRight size={16} />
+                </button>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+
+        {filteredProducts.length === 0 && (
+          <div className="text-center py-24 border-2 border-dashed border-surface-border">
+            <Info className="mx-auto text-text-muted mb-4" size={48} />
+            <p className="font-headline font-bold text-2xl uppercase text-text-muted">No products found matching your search</p>
+            <button 
+              onClick={() => {setActiveCategory("All"); setSearchQuery("");}}
+              className="mt-6 text-primary font-headline font-bold uppercase hover:underline"
+            >
+              Clear All Filters
+            </button>
+          </div>
+        )}
+
+        <section className="mt-32 p-12 bg-[#111111] overflow-hidden relative">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 -mr-32 -mt-32 rotate-45" />
+          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12 text-center md:text-left">
+            <div className="max-w-2xl">
+              <h2 className="font-headline font-extrabold text-4xl md:text-5xl text-white uppercase leading-none mb-6">
+                Need Volume <br/> <span className="text-primary italic">Pricing?</span>
+              </h2>
+              <p className="text-neutral-400 text-lg">
+                For contractors and commercial projects, we offer specialized bulk rates and logistics support.
+              </p>
+            </div>
+            <button className="btn-primary px-12 py-6 text-xl flex items-center gap-4 group flex-shrink-0">
+              REQUEST BULK QUOTE <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
+            </button>
+          </div>
+        </section>
+      </div>
+    </div>
+  );
+}
