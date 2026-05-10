@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { useTranslation } from '../contexts/TranslationContext';
 
 const categories = [
@@ -26,15 +27,15 @@ const categories = [
   "Fencing"
 ];
 
-const allProducts = [
-  { id: 1, name: 'Premium Douglas Fir 2x4', category: 'Lumber', span: 'Madera de Abeto', price: '$4.25 / LF', icon: <Trees />, description: 'Structural grade lumber for residential framing.' },
-  { id: 2, name: 'CDX Plywood 4x8', category: 'Plywood', span: 'Contrachapado', price: '$28.50 / Sheet', icon: <Layers />, description: 'Standard sheathing for roofs and walls.' },
-  { id: 3, name: 'SmartSide Hardboard', category: 'Siding', span: 'Revestimiento', price: '$12.00 / LF', icon: <LayoutIcon />, description: 'Engineered wood siding with advanced durability.' },
-  { id: 4, name: 'Pressure Treated 4x4', category: 'Lumber', span: 'Madera Tratada', price: '$15.75 / LF', icon: <Trees />, description: 'Ground contact rated timber for exterior projects.' },
-  { id: 5, name: 'Glulam Header 3.5x12', category: 'Beams', span: 'Viga Laminada', price: '$45.00 / LF', icon: <Ruler />, description: 'High-strength laminated beam for long spans.' },
-  { id: 6, name: 'CertainTeed Shingles', category: 'Roofing', span: 'Tejas', price: '$35.00 / Bundle', icon: <Home />, description: 'Architectural asphalt shingles in various colors.' },
-  { id: 7, name: 'Cedar Fence Pickets', category: 'Fencing', span: 'Cerca de Cedro', price: '$2.15 / Piece', icon: <Fence />, description: 'Natural rot-resistant cedar for residential fencing.' },
-  { id: 8, name: 'Custom Joist Trusses', category: 'Lumber', span: 'Cerchas', price: 'Quote Required', icon: <PencilRuler />, description: 'Pre-engineered trusses built to project specs.' },
+const products = [
+  { id: 1, name: 'Premium Douglas Fir 2x4', category: 'Lumber', span: 'Madera de Abeto', icon: <Trees />, description: 'Structural grade lumber for residential framing.' },
+  { id: 2, name: 'CDX Plywood 4x8', category: 'Plywood', span: 'Contrachapado', icon: <Layers />, description: 'Standard sheathing for roofs and walls.' },
+  { id: 3, name: 'SmartSide Hardboard', category: 'Siding', span: 'Revestimiento', icon: <LayoutIcon />, description: 'Engineered wood siding with advanced durability.' },
+  { id: 4, name: 'Pressure Treated 4x4', category: 'Lumber', span: 'Madera Tratada', icon: <Trees />, description: 'Ground contact rated timber for exterior projects.' },
+  { id: 5, name: 'Glulam Header 3.5x12', category: 'Beams', span: 'Viga Laminada', icon: <Ruler />, description: 'High-strength laminated beam for long spans.' },
+  { id: 6, name: 'CertainTeed Shingles', category: 'Roofing', span: 'Tejas', icon: <Home />, description: 'Architectural asphalt shingles in various colors.' },
+  { id: 7, name: 'Cedar Fence Pickets', category: 'Fencing', span: 'Cerca de Cedro', icon: <Fence />, description: 'Natural rot-resistant cedar for residential fencing.' },
+  { id: 8, name: 'Custom Joist Trusses', category: 'Lumber', span: 'Cerchas', icon: <PencilRuler />, description: 'Pre-engineered trusses built to project specs.' },
 ];
 
 export default function Products() {
@@ -42,7 +43,7 @@ export default function Products() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
-  const filteredProducts = allProducts.filter(p => {
+  const filteredProducts = products.filter(p => {
     const matchesCategory = activeCategory === "All" || p.category === activeCategory;
     const matchesSearch = p.name.toLowerCase().includes(searchQuery.toLowerCase()) || 
                          p.span.toLowerCase().includes(searchQuery.toLowerCase());
@@ -120,18 +121,9 @@ export default function Products() {
               </div>
               
               <div className="pt-6 border-t border-surface-border">
-                <div className="flex justify-between items-end mb-4">
-                  <div>
-                    <p className="font-mono text-[9px] text-text-muted uppercase mb-1">{t('products.market_rate')}</p>
-                    <p className="font-headline font-bold text-xl text-text-main">{p.price}</p>
-                  </div>
-                  <button className="w-10 h-10 bg-surface-card flex items-center justify-center text-text-main hover:bg-primary hover:text-black transition-colors rounded-sm cursor-pointer">
-                    <PlusSquare size={20} />
-                  </button>
-                </div>
-                <button className="w-full btn-primary !py-3 !text-sm flex items-center justify-center gap-2 cursor-pointer">
-                  {t('products.add_quote')} <ArrowRight size={16} />
-                </button>
+                <Link to="/contact" className="w-full btn-primary !py-4 !text-sm flex items-center justify-center gap-2 cursor-pointer mt-4">
+                  {t('nav.get_quote')} <ArrowRight size={16} />
+                </Link>
               </div>
             </motion.div>
           ))}

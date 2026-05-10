@@ -10,6 +10,7 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useTranslation } from '../contexts/TranslationContext';
+import { Link } from 'react-router-dom';
 
 const pricingCategories = [
   {
@@ -92,7 +93,7 @@ export default function Pricing() {
                 <div className="grid grid-cols-4 p-4 border-b border-surface-border bg-surface-card font-mono text-[9px] font-bold text-text-muted uppercase tracking-widest">
                   <div className="col-span-2">{t('pricing.table.product')}</div>
                   <div className="text-center">{t('pricing.table.unit')}</div>
-                  <div className="text-right">{t('pricing.table.rate')}</div>
+                  <div className="text-right"></div>
                 </div>
                 <div className="divide-y divide-surface-border">
                   {cat.items.map((item) => (
@@ -101,14 +102,10 @@ export default function Pricing() {
                         <p className="font-headline font-bold text-lg text-text-main group-hover:text-black uppercase">{item.name}</p>
                       </div>
                       <div className="text-center font-mono text-xs text-text-muted uppercase">{item.unit}</div>
-                      <div className="text-right flex flex-col items-end">
-                        <span className="font-headline font-bold text-2xl text-text-main">{item.price}</span>
-                        <span className={`text-[9px] font-bold uppercase ${
-                          item.change === 'up' ? 'text-red-500' : 
-                          item.change === 'down' ? 'text-green-500' : 'text-text-muted'
-                        }`}>
-                          {item.change === 'stable' ? '• market stable' : item.change === 'up' ? '↗ trending up' : '↘ price drop'}
-                        </span>
+                      <div className="text-right flex justify-end">
+                        <Link to="/contact" className="btn-primary !px-4 !py-2 !text-[10px] whitespace-nowrap inline-block text-center cursor-pointer">
+                          {t('nav.get_quote')}
+                        </Link>
                       </div>
                     </div>
                   ))}

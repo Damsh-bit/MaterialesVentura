@@ -7,6 +7,7 @@ export const translations = {
     'nav.values': 'VALUES',
     'nav.contact': 'CONTACT',
     'nav.get_quote': 'GET QUOTE',
+    'header.hours': 'Mon-Sat 7AM - 6PM',
     
     // Home - Hero
     'home.hero.hub': 'HOUSTON BUILDING HUB',
@@ -159,6 +160,7 @@ export const translations = {
     'nav.values': 'VALORES',
     'nav.contact': 'CONTACTO',
     'nav.get_quote': 'COTIZAR',
+    'header.hours': 'Lun-Sáb 7AM - 6PM',
     
     // Home - Hero
     'home.hero.hub': 'CENTRO DE CONSTRUCCIÓN EN HOUSTON',

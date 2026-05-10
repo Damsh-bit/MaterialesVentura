@@ -51,18 +51,8 @@ const ScrollToTop = () => {
 };
 
 const Logo = () => (
-  <div className="flex items-center gap-3 group cursor-pointer">
-    <div className="relative w-12 h-10">
-      <svg viewBox="0 0 100 80" className="w-full h-full fill-[#F5C400] transition-transform duration-500 group-hover:scale-105">
-          <path d="M5 70 L45 15 L85 70 L72 70 L45 33 L18 70 Z" />
-          <path d="M40 70 L60 45 L85 70 L72 70 L60 55 L48 70 Z" />
-          <rect x="75" y="45" width="8" height="25" />
-      </svg>
-    </div>
-    <div className="flex flex-col leading-none">
-      <span className="font-sans text-[10px] font-medium uppercase tracking-widest text-[#555555]">Materiales</span>
-      <span className="font-headline font-extrabold text-2xl tracking-tighter text-[#111111]">VENTURA</span>
-    </div>
+  <div className="flex items-center group cursor-pointer">
+    <img src="/fotos/Logotipo.png" alt="Materiales Ventura" className="h-12 md:h-16 object-contain" />
   </div>
 );
 
@@ -84,13 +74,13 @@ const HomeContent = () => {
       title: "Structural Douglas Fir",
       desc: "Premium grade Douglas Fir lumber for high-load structural applications. Sourced for Houston climate stability.",
       image: "/fotos/0559b63a-1031-4458-8219-09f93c70451f.webp",
-      price: "In Stock"
+      badge: "In Stock"
     },
     {
       title: "Engineered SmartSiding",
       desc: "Weather-resistant engineered wood siding. Superior protection against humidity and termite damage.",
       image: "/fotos/070fbedd-3c78-44f5-a017-fdc76a6a02be.webp",
-      price: "Top Seller"
+      badge: "Top Seller"
     }
   ];
 
@@ -192,7 +182,7 @@ const HomeContent = () => {
                 <div className="p-8">
                   <div className="flex justify-between items-start mb-4">
                     <h3 className="font-headline font-extrabold text-3xl uppercase text-text-main">{p.title}</h3>
-                    <span className="bg-primary/10 text-primary-dark font-mono text-[10px] font-bold px-2 py-1 uppercase">{p.price}</span>
+                    <span className="bg-primary/10 text-primary-dark font-mono text-[10px] font-bold px-2 py-1 uppercase">{p.badge}</span>
                   </div>
                   <p className="text-text-muted mb-6 leading-relaxed text-sm">{p.desc}</p>
                   <Link to="/products" className="flex items-center gap-2 font-headline font-bold uppercase text-sm text-text-main hover:text-primary transition-colors cursor-pointer">
@@ -402,11 +392,18 @@ export default function App() {
     <Router>
       <ScrollToTop />
       <div className="min-h-screen bg-surface-light flex flex-col selection:bg-primary selection:text-black">
-        {/* Top Accent Strip */}
-        <div className="h-2 bg-primary w-full fixed top-0 z-[60]" />
+        {/* Top Info Bar */}
+        <div className="bg-neutral-900 text-neutral-400 w-full fixed top-0 z-[60] h-8 flex justify-center md:justify-between items-center px-6 font-mono text-[9px] font-bold uppercase tracking-widest border-b border-black">
+          <div className="hidden md:flex items-center gap-3">
+            <Clock size={12} className="text-primary" /> {t('header.hours')}
+          </div>
+          <a href="mailto:materialesventura@outlook.com" className="flex items-center gap-3 hover:text-primary transition-colors cursor-pointer">
+            <Mail size={12} className="text-primary" /> materialesventura@outlook.com
+          </a>
+        </div>
         
         {/* Navigation */}
-        <nav className="fixed w-full top-2 z-50 bg-white/95 backdrop-blur-md border-b border-surface-border">
+        <nav className="fixed w-full top-8 z-50 bg-white/95 backdrop-blur-md border-b border-surface-border">
           <div className="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between">
             <div className="flex items-center gap-12">
               <Link to="/"><Logo /></Link>
@@ -472,7 +469,7 @@ export default function App() {
           )}
         </AnimatePresence>
 
-        <main className="flex-grow pt-20">
+        <main className="flex-grow pt-28">
           <Routes>
             <Route path="/" element={<HomeContent />} />
             <Route path="/products" element={<ProductsPage />} />
@@ -492,6 +489,14 @@ export default function App() {
                 <p className="text-neutral-500 mt-8 max-w-sm text-sm leading-relaxed mx-auto md:mx-0">
                   {t('footer.desc')}
                 </p>
+                <div className="mt-8 flex flex-col items-center md:items-start gap-4 font-mono text-[10px] text-neutral-400 font-bold uppercase tracking-widest">
+                  <a href="mailto:materialesventura@outlook.com" className="flex items-center gap-3 hover:text-primary transition-colors cursor-pointer">
+                    <Mail size={14} className="text-primary" /> materialesventura@outlook.com
+                  </a>
+                  <div className="flex items-center gap-3">
+                    <Clock size={14} className="text-primary" /> {t('header.hours')}
+                  </div>
+                </div>
               </div>
               <div>
                 <h5 className="font-headline font-bold text-white mb-8 uppercase tracking-[0.2em] text-[10px]">{t('footer.supply')}</h5>
