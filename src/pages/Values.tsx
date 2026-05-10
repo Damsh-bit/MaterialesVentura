@@ -12,6 +12,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { motion } from 'motion/react';
+import { useTranslation } from '../contexts/TranslationContext';
 
 const coreValues = [
   {
@@ -37,6 +38,7 @@ const coreValues = [
 ];
 
 export default function Values() {
+  const { t } = useTranslation();
   return (
     <div className="pt-32 pb-24 bg-surface-light min-h-screen">
       <div className="max-w-7xl mx-auto px-6">
@@ -45,12 +47,12 @@ export default function Values() {
              <Building2 size={400} className="text-text-main" />
           </div>
           <div className="relative z-10 max-w-2xl">
-            <p className="font-mono text-xs font-bold text-primary mb-4 tracking-widest uppercase">OUR MISSION</p>
+            <p className="font-mono text-xs font-bold text-primary mb-4 tracking-widest uppercase">{t('values.mission')}</p>
             <h1 className="font-headline font-extrabold text-6xl md:text-8xl uppercase leading-[0.85] text-text-main tracking-tighter mb-8 italic">
-              Building <br/> <span className="text-primary">Reliability.</span>
+              {t('values.title1')} <br/> <span className="text-primary">{t('values.title2')}</span>
             </h1>
             <p className="text-text-muted text-xl leading-relaxed">
-              Materiales Ventura was established to bridge the gap between global supply chains and local Houston contractors. We believe a building is only as strong as the logistics behind it.
+              {t('values.desc')}
             </p>
           </div>
         </header>
@@ -79,7 +81,7 @@ export default function Values() {
         <section className="grid lg:grid-cols-2 gap-24 items-center mb-32">
           <div className="aspect-square bg-surface-card overflow-hidden border border-surface-border relative">
             <img 
-               src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1470&auto=format&fit=crop" 
+               src="/fotos/e7244979-edc0-42a8-94a1-34ffda9e57a6.webp"
                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 hover:scale-105"
                alt="Teamwork"
             />
@@ -92,28 +94,28 @@ export default function Values() {
               <Users size={48} />
               <div className="h-px bg-primary flex-grow" />
             </div>
-            <h2 className="font-headline font-extrabold text-5xl uppercase leading-none text-text-main">A Culture of <span className="text-primary italic">Service</span></h2>
+            <h2 className="font-headline font-extrabold text-5xl uppercase leading-none text-text-main">{t('values.culture.title1')} <span className="text-primary italic">{t('values.culture.title2')}</span></h2>
             <p className="text-text-muted text-lg leading-relaxed">
-              We aren't just a materials yard. We are a partner in your project's success. Our bilingual support team is trained in structural standards, so we don't just take orders — we provide solutions.
+              {t('values.culture.desc')}
             </p>
             <div className="space-y-6">
               <div className="flex gap-4">
                 <div className="w-10 h-10 border-2 border-primary flex items-center justify-center flex-shrink-0">
                   <span className="font-mono text-xs font-bold">01</span>
                 </div>
-                <p className="font-headline font-bold uppercase text-text-main">Hablamos tu idioma, conocemos tu obra.</p>
+                <p className="font-headline font-bold uppercase text-text-main">{t('values.culture.list1')}</p>
               </div>
               <div className="flex gap-4">
                 <div className="w-10 h-10 border-2 border-primary flex items-center justify-center flex-shrink-0">
                   <span className="font-mono text-xs font-bold">02</span>
                 </div>
-                <p className="font-headline font-bold uppercase text-text-main">Comprometidos con los contratistas locales.</p>
+                <p className="font-headline font-bold uppercase text-text-main">{t('values.culture.list2')}</p>
               </div>
               <div className="flex gap-4">
                 <div className="w-10 h-10 border-2 border-primary flex items-center justify-center flex-shrink-0">
                   <span className="font-mono text-xs font-bold">03</span>
                 </div>
-                <p className="font-headline font-bold uppercase text-text-main">Calidad garantizada en cada entrega.</p>
+                <p className="font-headline font-bold uppercase text-text-main">{t('values.culture.list3')}</p>
               </div>
             </div>
           </div>
@@ -125,26 +127,26 @@ export default function Values() {
           <div className="relative z-10 grid md:grid-cols-4 gap-12">
             <div>
               <p className="font-headline font-extrabold text-6xl text-primary mb-2">150+</p>
-              <p className="font-mono text-[9px] uppercase tracking-widest text-neutral-500">Contractors Served</p>
+              <p className="font-mono text-[9px] uppercase tracking-widest text-neutral-500">{t('values.stats.contractors')}</p>
             </div>
             <div>
               <p className="font-headline font-extrabold text-6xl text-primary mb-2">1.2M</p>
-              <p className="font-mono text-[9px] uppercase tracking-widest text-neutral-500">Board Feet Stocked</p>
+              <p className="font-mono text-[9px] uppercase tracking-widest text-neutral-500">{t('values.stats.board')}</p>
             </div>
             <div>
               <p className="font-headline font-extrabold text-6xl text-primary mb-2">100%</p>
-              <p className="font-mono text-[9px] uppercase tracking-widest text-neutral-500">Bilingual Support</p>
+              <p className="font-mono text-[9px] uppercase tracking-widest text-neutral-500">{t('values.stats.bilingual')}</p>
             </div>
             <div>
               <p className="font-headline font-extrabold text-6xl text-primary mb-2">4HR</p>
-              <p className="font-mono text-[9px] uppercase tracking-widest text-neutral-500">Average Quote Time</p>
+              <p className="font-mono text-[9px] uppercase tracking-widest text-neutral-500">{t('values.stats.quote')}</p>
             </div>
           </div>
         </section>
 
         <div className="mt-24 text-center">
-           <button className="btn-primary !px-12 !py-6 text-xl flex items-center gap-4 mx-auto group">
-              JOIN OUR NETWORK <ArrowRight className="group-hover:translate-x-2 transition-transform" />
+           <button className="btn-primary !px-12 !py-6 text-xl flex items-center gap-4 mx-auto group cursor-pointer">
+              {t('values.btn_network')} <ArrowRight className="group-hover:translate-x-2 transition-transform" />
            </button>
         </div>
       </div>

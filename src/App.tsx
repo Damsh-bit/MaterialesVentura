@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState, useEffect } from 'react';
+import { useTranslation } from './contexts/TranslationContext';
 import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import ProductsPage from './pages/Products';
 import GalleryPage from './pages/Gallery';
@@ -66,6 +67,7 @@ const Logo = () => (
 );
 
 const HomeContent = () => {
+  const { t } = useTranslation();
   const inventory = [
     { name: 'Lumber', span: 'MADERA', icon: <Trees className="w-6 h-6" /> },
     { name: 'Siding', span: 'REVESTIMIENTO', icon: <Layout className="w-6 h-6" /> },
@@ -81,24 +83,24 @@ const HomeContent = () => {
     {
       title: "Structural Douglas Fir",
       desc: "Premium grade Douglas Fir lumber for high-load structural applications. Sourced for Houston climate stability.",
-      image: "https://images.unsplash.com/photo-1589939705384-5185138a04b9?q=80&w=1470&auto=format&fit=crop",
+      image: "/fotos/0559b63a-1031-4458-8219-09f93c70451f.webp",
       price: "In Stock"
     },
     {
       title: "Engineered SmartSiding",
       desc: "Weather-resistant engineered wood siding. Superior protection against humidity and termite damage.",
-      image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=1374&auto=format&fit=crop",
+      image: "/fotos/070fbedd-3c78-44f5-a017-fdc76a6a02be.webp",
       price: "Top Seller"
     }
   ];
 
   const gallery = [
-    "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1470&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1503387762-5929c69d398d?q=80&w=1631&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1470&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1584622781564-1d9876a13399?q=80&w=1470&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=1470&auto=format&fit=crop",
-    "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?q=80&w=1631&auto=format&fit=crop"
+    "/fotos/347b18b5-fa91-4650-9af4-3a3d23ea6c0f.webp",
+    "/fotos/36b1364b-f403-4336-84a5-99c79436837d.webp",
+    "/fotos/4366b5e9-5be0-4a73-91b8-0dd276ca97a1.webp",
+    "/fotos/48cc0d68-49a6-496d-9865-52c4a9d880f2.webp",
+    "/fotos/50eccd73-6708-4f94-9cc6-4ac9ba16dfdd.webp",
+    "/fotos/78e3b217-2acc-4506-adb8-03b1bc2d3eef.webp"
   ];
 
   const values = [
@@ -111,21 +113,27 @@ const HomeContent = () => {
   return (
     <>
       {/* Hero */}
-      <section className="relative h-[85vh] flex items-center justify-center overflow-hidden">
-        <div 
-          className="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-1000 scale-105"
-          style={{ 
-            backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.8)), url('https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1470&auto=format&fit=crop')` 
-          }}
-        />
+      <section className="relative min-h-[calc(100vh-5rem)] flex items-center justify-center overflow-hidden">
+        <div className="absolute inset-0 z-0 overflow-hidden">
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            className="w-full h-full object-cover transition-transform duration-1000 scale-105"
+          >
+            <source src="/fotos/Video%20hero.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-black/60" />
+        </div>
         
         <div className="relative z-10 max-w-7xl mx-auto px-6 text-center">
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 bg-primary text-black font-mono text-[10px] font-bold px-4 py-1.5 mb-8 tracking-widest"
+            className="inline-flex items-center gap-2 bg-primary text-black font-mono text-[10px] font-bold px-4 py-1.5 mb-8 tracking-widest cursor-default"
           >
-            <MapPin size={12} /> HOUSTON BUILDING HUB
+            <MapPin size={12} /> {t('home.hero.hub')}
           </motion.div>
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
@@ -133,8 +141,8 @@ const HomeContent = () => {
             transition={{ delay: 0.1 }}
             className="font-headline font-extrabold text-5xl md:text-7xl lg:text-8xl leading-[0.95] uppercase mb-8 tracking-tighter text-white"
           >
-            Professional Materials <br/>
-            <span className="text-primary">For Every Job Site</span>
+            {t('home.hero.title1')} <br/>
+            <span className="text-primary">{t('home.hero.title2')}</span>
           </motion.h1>
           <motion.p 
             initial={{ opacity: 0 }}
@@ -142,8 +150,8 @@ const HomeContent = () => {
             transition={{ delay: 0.2 }}
             className="max-w-2xl mx-auto text-lg md:text-xl text-neutral-200 mb-12 font-medium"
           >
-            Reliable lumber, siding, and roofing supplies at competitive contractor prices. <br/>
-            <span className="opacity-50 text-base">Suministro de construcción profesional en Houston.</span>
+            {t('home.hero.desc1')} <br/>
+            <span className="opacity-50 text-base">{t('home.hero.desc2')}</span>
           </motion.p>
           
           <motion.div 
@@ -152,11 +160,11 @@ const HomeContent = () => {
             transition={{ delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            <Link to="/products" className="btn-primary w-full sm:w-auto px-10 py-5 text-lg group">
-              EXPLORE CATALOG <ChevronRight className="group-hover:translate-x-1 transition-transform" />
+            <Link to="/products" className="btn-primary w-full sm:w-auto px-10 py-5 text-lg group cursor-pointer">
+              {t('home.hero.btn_catalog')} <ChevronRight className="group-hover:translate-x-1 transition-transform" />
             </Link>
-            <a href="#pricing" className="bg-transparent border-2 border-white text-white font-headline font-bold uppercase py-[1.125rem] px-8 flex items-center justify-center gap-2 transition-all hover:bg-white hover:text-black w-full sm:w-auto text-lg group">
-              LATEST PRICING <ArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            <a href="#pricing" className="bg-transparent border-2 border-white text-white font-headline font-bold uppercase py-[1.125rem] px-8 flex items-center justify-center gap-2 transition-all hover:bg-white hover:text-black w-full sm:w-auto text-lg group cursor-pointer">
+              {t('home.hero.btn_pricing')} <ArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
             </a>
           </motion.div>
         </div>
@@ -167,11 +175,11 @@ const HomeContent = () => {
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 text-center md:text-left">
             <div>
-              <p className="font-mono text-xs font-bold text-primary mb-2 tracking-widest uppercase">CATALOG</p>
-              <h2 className="font-headline font-extrabold text-5xl uppercase leading-none text-text-main">Featured Materials</h2>
+              <p className="font-mono text-xs font-bold text-primary mb-2 tracking-widest uppercase">{t('home.featured.catalog')}</p>
+              <h2 className="font-headline font-extrabold text-5xl uppercase leading-none text-text-main">{t('home.featured.title')}</h2>
             </div>
             <p className="max-w-md text-text-muted mx-auto md:mx-0 text-sm md:text-base">
-              We stock only the highest grade materials tested for the unique demands of the Texas Gulf Coast environment.
+              {t('home.featured.desc')}
             </p>
           </div>
 
@@ -187,8 +195,8 @@ const HomeContent = () => {
                     <span className="bg-primary/10 text-primary-dark font-mono text-[10px] font-bold px-2 py-1 uppercase">{p.price}</span>
                   </div>
                   <p className="text-text-muted mb-6 leading-relaxed text-sm">{p.desc}</p>
-                  <Link to="/products" className="flex items-center gap-2 font-headline font-bold uppercase text-sm text-text-main hover:text-primary transition-colors">
-                    Specification Sheets <ArrowRight size={16} />
+                  <Link to="/products" className="flex items-center gap-2 font-headline font-bold uppercase text-sm text-text-main hover:text-primary transition-colors cursor-pointer">
+                    {t('home.featured.specs')} <ArrowRight size={16} />
                   </Link>
                 </div>
               </div>
@@ -201,7 +209,7 @@ const HomeContent = () => {
       <section className="py-24 bg-surface-card border-b border-surface-border overflow-hidden">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="font-headline font-extrabold text-4xl uppercase text-text-main mb-4">What We Carry</h2>
+            <h2 className="font-headline font-extrabold text-4xl uppercase text-text-main mb-4">{t('home.inventory.title')}</h2>
             <div className="h-1 w-20 bg-primary mx-auto" />
           </div>
           
@@ -225,8 +233,8 @@ const HomeContent = () => {
       <section id="gallery" className="py-24 bg-surface-light border-b border-surface-border">
         <div className="max-w-7xl mx-auto px-6">
           <div className="mb-12 text-center md:text-left">
-            <p className="font-mono text-xs font-bold text-primary mb-2 tracking-widest uppercase">PORTFOLIO</p>
-            <h2 className="font-headline font-extrabold text-5xl uppercase leading-none text-text-main">Our Projects</h2>
+            <p className="font-mono text-xs font-bold text-primary mb-2 tracking-widest uppercase">{t('home.gallery.portfolio')}</p>
+            <h2 className="font-headline font-extrabold text-5xl uppercase leading-none text-text-main">{t('home.gallery.title')}</h2>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -234,7 +242,7 @@ const HomeContent = () => {
               <Link
                 key={i}
                 to="/gallery"
-                className="block"
+                className="block cursor-pointer"
               >
                 <motion.div 
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -245,7 +253,7 @@ const HomeContent = () => {
                   <img src={img} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
                   <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                     <div className="p-4 border border-white text-white font-headline font-bold uppercase text-sm">
-                      View Project
+                      {t('home.gallery.view_project')}
                     </div>
                   </div>
                 </motion.div>
@@ -253,8 +261,8 @@ const HomeContent = () => {
             ))}
           </div>
           <div className="mt-12 text-center">
-            <Link to="/gallery" className="btn-primary inline-flex items-center gap-2 px-12 py-5">
-              VIEW FULL GALLERY <ArrowRight size={20} />
+            <Link to="/gallery" className="btn-primary inline-flex items-center gap-2 px-12 py-5 cursor-pointer">
+              {t('home.gallery.view_full')} <ArrowRight size={20} />
             </Link>
           </div>
         </div>
@@ -267,9 +275,9 @@ const HomeContent = () => {
             {/* Left: Branding & Info */}
             <div className="bg-[#111111] p-12 lg:w-2/5 flex flex-col justify-between text-white relative">
               <div className="z-10">
-                <div className="inline-block bg-primary text-black font-mono text-[10px] font-bold px-3 py-1 mb-8 uppercase tracking-widest">CONNECT</div>
-                <h2 className="font-headline font-extrabold text-5xl uppercase leading-[0.85] mb-6">Start Your <br/><span className="text-primary italic">Quote Now</span></h2>
-                <p className="text-neutral-400 mb-12 text-sm leading-relaxed">Our team at Materiales Ventura handles custom project quotes within 4 business hours. Let's build something lasting together.</p>
+                <div className="inline-block bg-primary text-black font-mono text-[10px] font-bold px-3 py-1 mb-8 uppercase tracking-widest">{t('home.contact.connect')}</div>
+                <h2 className="font-headline font-extrabold text-5xl uppercase leading-[0.85] mb-6">{t('home.contact.title1')} <br/><span className="text-primary italic">{t('home.contact.title2')}</span></h2>
+                <p className="text-neutral-400 mb-12 text-sm leading-relaxed">{t('home.contact.desc')}</p>
                 
                 <div className="flex flex-col gap-10">
                   <div className="flex items-start gap-4">
@@ -277,7 +285,7 @@ const HomeContent = () => {
                       <MapPin className="text-primary" size={24} />
                     </div>
                     <div className="font-headline uppercase">
-                      <p className="text-[10px] text-neutral-500 mb-1 tracking-widest font-mono">Operations Hub</p>
+                      <p className="text-[10px] text-neutral-500 mb-1 tracking-widest font-mono">{t('home.contact.hub')}</p>
                       <p className="text-xl">9400 Airline Dr, <br/>Houston TX 77037</p>
                     </div>
                   </div>
@@ -286,10 +294,10 @@ const HomeContent = () => {
                       <Phone className="text-primary" size={24} />
                     </div>
                     <div className="font-headline uppercase">
-                      <p className="text-[10px] text-neutral-500 mb-1 tracking-widest font-mono">Contractor Line</p>
+                      <p className="text-[10px] text-neutral-500 mb-1 tracking-widest font-mono">{t('home.contact.phone')}</p>
                        <div className="flex flex-col">
-                          <a href="tel:8326148466" className="text-xl hover:text-primary transition-colors">832-614-8466</a>
-                          <a href="tel:3176191190" className="text-xl hover:text-primary transition-colors">317-619-1190</a>
+                          <a href="tel:8326148466" className="text-xl hover:text-primary transition-colors cursor-pointer">832-614-8466</a>
+                          <a href="tel:3176191190" className="text-xl hover:text-primary transition-colors cursor-pointer">317-619-1190</a>
                        </div>
                     </div>
                   </div>
@@ -305,42 +313,42 @@ const HomeContent = () => {
             <div className="p-12 lg:w-3/5 bg-white">
               <form className="grid sm:grid-cols-2 gap-8">
                 <div className="space-y-1">
-                  <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">Name / Nombre</label>
+                  <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">{t('home.contact.form.name')}</label>
                   <input 
                     type="text" 
-                    placeholder="YOUR FULL NAME"
+                    placeholder={t('home.contact.form.name_ph')}
                     className="w-full bg-surface-card border border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
                   />
                 </div>
                 <div className="space-y-1">
-                  <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">Phone / Teléfono</label>
+                  <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">{t('home.contact.form.phone')}</label>
                   <input 
                     type="tel" 
-                    placeholder="PHONE NUMBER"
+                    placeholder={t('home.contact.form.phone_ph')}
                     className="w-full bg-surface-card border border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
                   />
                 </div>
                 <div className="sm:col-span-2 space-y-1">
-                  <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">Email / Correo</label>
+                  <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">{t('home.contact.form.email')}</label>
                   <input 
                     type="email" 
-                    placeholder="EMAIL@EXAMPLE.COM"
+                    placeholder={t('home.contact.form.email_ph')}
                     className="w-full bg-surface-card border border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
                   />
                 </div>
                 <div className="sm:col-span-2 space-y-1">
-                  <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">Project Details / Detalles</label>
+                  <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">{t('home.contact.form.details')}</label>
                   <textarea 
                     rows={6}
-                    placeholder="WHAT MATERIALS ARE YOU LOOKING FOR? ( QUANTITIES, SPECS, TIMELINE )"
+                    placeholder={t('home.contact.form.details_ph')}
                     className="w-full bg-surface-card border border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main resize-none"
                   />
                 </div>
                 <div className="sm:col-span-2">
-                  <button className="btn-primary w-full py-6 text-2xl flex items-center justify-center gap-4 group">
-                    SUBMIT REQUEST <ArrowRight size={28} className="group-hover:translate-x-2 transition-transform" />
+                  <button className="btn-primary w-full py-6 text-2xl flex items-center justify-center gap-4 group cursor-pointer">
+                    {t('home.contact.form.submit')} <ArrowRight size={28} className="group-hover:translate-x-2 transition-transform" />
                   </button>
-                  <p className="text-center text-text-muted text-[10px] mt-4 font-mono uppercase tracking-tighter opacity-50">By submitting you agree to our privacy policy and terms of service.</p>
+                  <p className="text-center text-text-muted text-[10px] mt-4 font-mono uppercase tracking-tighter opacity-50">{t('home.contact.form.terms')}</p>
                 </div>
               </form>
             </div>
@@ -352,18 +360,17 @@ const HomeContent = () => {
       <section id="pricing" className="bg-primary py-24 px-6 text-center">
           <div className="max-w-4xl mx-auto">
               <h2 className="font-headline font-extrabold text-5xl md:text-6xl text-black uppercase mb-8 tracking-tighter leading-none">
-                  Ready for a Volume Discount?
+                  {t('home.pricing.title')}
               </h2>
               <p className="text-black/70 mb-12 text-lg font-medium leading-relaxed px-4">
-                  We specialize in bulk supply for large residential and commercial projects. <br/>
-                  Download our live price list to see why contractors choose Ventura.
+                  {t('home.pricing.desc')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <button className="bg-black text-white font-headline font-bold text-xl px-12 py-5 uppercase hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2">
-                      PRICE LIST <ArrowUpRight size={24} />
+                  <button className="bg-black text-white font-headline font-bold text-xl px-12 py-5 uppercase hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2 cursor-pointer">
+                      {t('home.pricing.btn_list')} <ArrowUpRight size={24} />
                   </button>
-                  <a href="#contact" className="border-2 border-black text-black font-headline font-bold text-xl px-12 py-5 uppercase hover:bg-black hover:text-white transition-colors flex items-center justify-center">
-                      CONTACT SALES
+                  <a href="#contact" className="border-2 border-black text-black font-headline font-bold text-xl px-12 py-5 uppercase hover:bg-black hover:text-white transition-colors flex items-center justify-center cursor-pointer">
+                      {t('home.pricing.btn_sales')}
                   </a>
               </div>
           </div>
@@ -389,6 +396,7 @@ const HomeContent = () => {
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { language, toggleLanguage, setLanguage, t } = useTranslation();
 
   return (
     <Router>
@@ -409,21 +417,24 @@ export default function App() {
                     to={`/${item.toLowerCase()}`}
                     className="font-headline font-bold text-sm tracking-widest text-text-muted hover:text-primary transition-colors"
                   >
-                    {item}
+                    {t(`nav.${item.toLowerCase()}`)}
                   </Link>
                 ))}
               </div>
             </div>
             
             <div className="flex items-center gap-4">
-              <button className="font-mono text-xs font-bold border border-surface-border px-3 py-1 hover:border-black transition-colors text-text-main">
-                EN/ES
+              <button 
+                onClick={toggleLanguage}
+                className="font-mono text-xs font-bold border border-surface-border px-3 py-1 hover:border-black transition-colors text-text-main cursor-pointer"
+              >
+                {language === 'en' ? 'ES' : 'EN'}
               </button>
-              <Link to="/contact" className="hidden md:flex bg-primary text-black font-headline font-bold text-sm px-6 py-3 hover:bg-black hover:text-primary transition-all shadow-sm">
-                GET QUOTE
+              <Link to="/contact" className="hidden md:flex bg-primary text-black font-headline font-bold text-sm px-6 py-3 hover:bg-black hover:text-primary transition-all shadow-sm cursor-pointer">
+                {t('nav.get_quote')}
               </Link>
               <button 
-                className="lg:hidden text-text-main p-2"
+                className="lg:hidden text-text-main p-2 cursor-pointer"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
               >
                 <Menu size={24} />
@@ -461,7 +472,7 @@ export default function App() {
           )}
         </AnimatePresence>
 
-        <main className="flex-grow">
+        <main className="flex-grow pt-20">
           <Routes>
             <Route path="/" element={<HomeContent />} />
             <Route path="/products" element={<ProductsPage />} />
@@ -479,37 +490,43 @@ export default function App() {
               <div className="col-span-2 flex flex-col items-center md:items-start">
                 <Logo />
                 <p className="text-neutral-500 mt-8 max-w-sm text-sm leading-relaxed mx-auto md:mx-0">
-                  Houston's specialist in structural lumber, engineered wood, and roofing systems. Since 2024, Materiales Ventura has focused on bridging the gap between supply chain efficiency and jobsite reliability.
+                  {t('footer.desc')}
                 </p>
               </div>
               <div>
-                <h5 className="font-headline font-bold text-white mb-8 uppercase tracking-[0.2em] text-[10px]">Supply Chain</h5>
+                <h5 className="font-headline font-bold text-white mb-8 uppercase tracking-[0.2em] text-[10px]">{t('footer.supply')}</h5>
                 <ul className="space-y-4 text-xs text-neutral-500 font-headline uppercase font-bold tracking-widest">
-                  <li><Link to="/products" className="hover:text-primary transition-colors cursor-pointer">Lumber & Siding</Link></li>
-                  <li><Link to="/gallery" className="hover:text-primary transition-colors cursor-pointer">Project Gallery</Link></li>
-                  <li><Link to="/pricing" className="hover:text-primary transition-colors cursor-pointer">Market Rates</Link></li>
-                  <li><Link to="/contact" className="hover:text-primary transition-colors cursor-pointer">Quick Quote</Link></li>
+                  <li><Link to="/products" className="hover:text-primary transition-colors cursor-pointer">{t('footer.supply.lumber')}</Link></li>
+                  <li><Link to="/gallery" className="hover:text-primary transition-colors cursor-pointer">{t('footer.supply.gallery')}</Link></li>
+                  <li><Link to="/pricing" className="hover:text-primary transition-colors cursor-pointer">{t('footer.supply.rates')}</Link></li>
+                  <li><Link to="/contact" className="hover:text-primary transition-colors cursor-pointer">{t('footer.supply.quote')}</Link></li>
                 </ul>
               </div>
               <div>
-                <h5 className="font-headline font-bold text-white mb-8 uppercase tracking-[0.2em] text-[10px]">Compliance</h5>
+                <h5 className="font-headline font-bold text-white mb-8 uppercase tracking-[0.2em] text-[10px]">{t('footer.compliance')}</h5>
                 <ul className="space-y-4 text-xs text-neutral-500 font-headline uppercase font-bold tracking-widest">
-                  <li><a href="#" className="hover:text-primary transition-colors">Privacy Policy</a></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Terms of Sale</a></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Safety Data (SDS)</a></li>
+                  <li><a href="#" className="hover:text-primary transition-colors cursor-pointer">{t('footer.compliance.privacy')}</a></li>
+                  <li><a href="#" className="hover:text-primary transition-colors cursor-pointer">{t('footer.compliance.terms')}</a></li>
+                  <li><a href="#" className="hover:text-primary transition-colors cursor-pointer">{t('footer.compliance.sds')}</a></li>
                 </ul>
               </div>
             </div>
             
             <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
               <p className="font-headline font-bold text-[10px] text-neutral-600 uppercase tracking-[0.3em]">
-                © 2024 SUPPLY-CORE LOGISTICS HOUSTON. ALL RIGHTS RESERVED.
+                {t('footer.rights')}
               </p>
               <div className="flex gap-4">
-                <button className="font-mono text-[10px] font-bold border border-white/10 px-4 py-2 hover:border-primary transition-colors text-neutral-500 uppercase">
+                <button 
+                  onClick={() => setLanguage('en')}
+                  className={`font-mono text-[10px] font-bold border px-4 py-2 hover:border-primary transition-colors uppercase cursor-pointer ${language === 'en' ? 'border-primary text-white' : 'border-white/10 text-neutral-500'}`}
+                >
                   EN
                 </button>
-                <button className="font-mono text-[10px] font-bold border border-white/10 px-4 py-2 hover:border-primary transition-colors text-neutral-500 uppercase">
+                <button 
+                  onClick={() => setLanguage('es')}
+                  className={`font-mono text-[10px] font-bold border px-4 py-2 hover:border-primary transition-colors uppercase cursor-pointer ${language === 'es' ? 'border-primary text-white' : 'border-white/10 text-neutral-500'}`}
+                >
                   ES
                 </button>
               </div>

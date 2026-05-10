@@ -14,6 +14,7 @@ import {
 } from 'lucide-react';
 import { motion } from 'motion/react';
 import { useState } from 'react';
+import { useTranslation } from '../contexts/TranslationContext';
 
 const categories = [
   "All",
@@ -37,6 +38,7 @@ const allProducts = [
 ];
 
 export default function Products() {
+  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -51,17 +53,17 @@ export default function Products() {
     <div className="pt-32 pb-24 bg-surface-light min-h-screen">
       <div className="max-w-7xl mx-auto px-6">
         <header className="mb-16">
-          <p className="font-mono text-xs font-bold text-primary mb-2 tracking-widest uppercase text-center md:text-left">CATALOGO DE PRODUCTOS</p>
+          <p className="font-mono text-xs font-bold text-primary mb-2 tracking-widest uppercase text-center md:text-left">{t('products.catalog')}</p>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <h1 className="font-headline font-extrabold text-5xl md:text-7xl uppercase leading-[0.95] text-text-main tracking-tighter text-center md:text-left">
-              Professional <br/> <span className="text-primary italic">Inventory</span>
+              {t('products.title1')} <br/> <span className="text-primary italic">{t('products.title2')}</span>
             </h1>
             <div className="flex flex-col gap-4 w-full md:w-96">
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" size={18} />
                 <input 
                   type="text" 
-                  placeholder="SEARCH MATERIALS..."
+                  placeholder={t('products.search')}
                   className="w-full bg-surface-card border border-surface-border p-4 pl-12 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
@@ -76,7 +78,7 @@ export default function Products() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-6 py-2 font-headline font-bold uppercase tracking-widest text-sm transition-all border ${
+              className={`px-6 py-2 font-headline font-bold uppercase tracking-widest text-sm transition-all border cursor-pointer ${
                 activeCategory === cat 
                 ? 'bg-black text-primary border-black' 
                 : 'bg-white text-text-muted border-surface-border hover:border-text-main'
@@ -120,15 +122,15 @@ export default function Products() {
               <div className="pt-6 border-t border-surface-border">
                 <div className="flex justify-between items-end mb-4">
                   <div>
-                    <p className="font-mono text-[9px] text-text-muted uppercase mb-1">Market Rate</p>
+                    <p className="font-mono text-[9px] text-text-muted uppercase mb-1">{t('products.market_rate')}</p>
                     <p className="font-headline font-bold text-xl text-text-main">{p.price}</p>
                   </div>
-                  <button className="w-10 h-10 bg-surface-card flex items-center justify-center text-text-main hover:bg-primary hover:text-black transition-colors rounded-sm">
+                  <button className="w-10 h-10 bg-surface-card flex items-center justify-center text-text-main hover:bg-primary hover:text-black transition-colors rounded-sm cursor-pointer">
                     <PlusSquare size={20} />
                   </button>
                 </div>
-                <button className="w-full btn-primary !py-3 !text-sm flex items-center justify-center gap-2">
-                  ADD TO QUOTE <ArrowRight size={16} />
+                <button className="w-full btn-primary !py-3 !text-sm flex items-center justify-center gap-2 cursor-pointer">
+                  {t('products.add_quote')} <ArrowRight size={16} />
                 </button>
               </div>
             </motion.div>
@@ -138,12 +140,12 @@ export default function Products() {
         {filteredProducts.length === 0 && (
           <div className="text-center py-24 border-2 border-dashed border-surface-border">
             <Info className="mx-auto text-text-muted mb-4" size={48} />
-            <p className="font-headline font-bold text-2xl uppercase text-text-muted">No products found matching your search</p>
+            <p className="font-headline font-bold text-2xl uppercase text-text-muted">{t('products.no_results')}</p>
             <button 
               onClick={() => {setActiveCategory("All"); setSearchQuery("");}}
-              className="mt-6 text-primary font-headline font-bold uppercase hover:underline"
+              className="mt-6 text-primary font-headline font-bold uppercase hover:underline cursor-pointer"
             >
-              Clear All Filters
+              {t('products.clear_filters')}
             </button>
           </div>
         )}
@@ -153,14 +155,14 @@ export default function Products() {
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12 text-center md:text-left">
             <div className="max-w-2xl">
               <h2 className="font-headline font-extrabold text-4xl md:text-5xl text-white uppercase leading-none mb-6">
-                Need Volume <br/> <span className="text-primary italic">Pricing?</span>
+                {t('products.bulk.title1')} <br/> <span className="text-primary italic">{t('products.bulk.title2')}</span>
               </h2>
               <p className="text-neutral-400 text-lg">
-                For contractors and commercial projects, we offer specialized bulk rates and logistics support.
+                {t('products.bulk.desc')}
               </p>
             </div>
-            <button className="btn-primary px-12 py-6 text-xl flex items-center gap-4 group flex-shrink-0">
-              REQUEST BULK QUOTE <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
+            <button className="btn-primary px-12 py-6 text-xl flex items-center gap-4 group flex-shrink-0 cursor-pointer">
+              {t('products.bulk.btn')} <ArrowRight size={24} className="group-hover:translate-x-2 transition-transform" />
             </button>
           </div>
         </section>

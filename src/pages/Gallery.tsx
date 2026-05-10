@@ -1,5 +1,6 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { useState } from 'react';
+import { useTranslation } from '../contexts/TranslationContext';
 import { Layout, Maximize2, X, ArrowRight, Camera } from 'lucide-react';
 
 const categories = ["All", "Residential", "Commercial", "Inventory", "Logistics"];
@@ -10,67 +11,68 @@ const galleryItems = [
     category: "Residential",
     title: "Luxury Framing Project",
     location: "Sugar Land, TX",
-    image: "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=1470&auto=format&fit=crop"
+    image: "/fotos/7fce9ae7-2b20-4ad1-b3fc-928c7e67ea37.webp"
   },
   {
     id: 2,
     category: "Commercial",
     title: "Warehouse Expansion",
     location: "Katy, TX",
-    image: "https://images.unsplash.com/photo-1503387762-5929c69d398d?q=80&w=1631&auto=format&fit=crop"
+    image: "/fotos/WhatsApp%20Image%202026-05-07%20at%2012.19.24%20PM.webp"
   },
   {
     id: 3,
     category: "Inventory",
     title: "Douglas Fir Stockpile",
     location: "Main Distribution Center",
-    image: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1470&auto=format&fit=crop"
+    image: "/fotos/a096b76b-65e7-4d7e-ba85-ef6f62dcb971.webp"
   },
   {
     id: 4,
     category: "Residential",
     title: "Modern Home Siding",
     location: "The Woodlands, TX",
-    image: "https://images.unsplash.com/photo-1584622781564-1d9876a13399?q=80&w=1470&auto=format&fit=crop"
+    image: "/fotos/ae78c1de-039e-4dfd-8ae4-6a64fdfc372e.webp"
   },
   {
     id: 5,
     category: "Logistics",
     title: "Rapid Jobsite Delivery",
     location: "Houston Metro Area",
-    image: "https://images.unsplash.com/photo-1581094794329-c8112a89af12?q=80&w=1470&auto=format&fit=crop"
+    image: "/fotos/b4da9cbf-a60f-429f-85ca-75ccc64c1402.webp"
   },
   {
     id: 6,
     category: "Inventory",
     title: "Precision Cut Beams",
     location: "Bespoke Orders",
-    image: "https://images.unsplash.com/photo-1565008447742-97f6f38c985c?q=80&w=1631&auto=format&fit=crop"
+    image: "/fotos/bbf34c3d-a282-43c9-8437-f72077b2baee.webp"
   },
   {
     id: 7,
     category: "Residential",
     title: "Roofing Installation",
     location: "Pearland, TX",
-    image: "https://images.unsplash.com/photo-1632759145351-1d5929a9f291?q=80&w=1470&auto=format&fit=crop"
+    image: "/fotos/bd2b94fd-37a6-4a0b-92b9-dfa8e645c547.webp"
   },
   {
     id: 8,
     category: "Commercial",
     title: "Office Complex Structure",
     location: "Downtown Houston",
-    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1470&auto=format&fit=crop"
+    image: "/fotos/c827f073-35e3-43e4-8d74-b68be66b3e54.webp"
   },
   {
     id: 9,
     category: "Inventory",
     title: "Engineered Wood Joists",
     location: "Central Warehouse",
-    image: "https://images.unsplash.com/photo-1589939705384-5185138a04b9?q=80&w=1470&auto=format&fit=crop"
+    image: "/fotos/dbac4834-c21e-4c20-9e71-0679857344bd.webp"
   }
 ];
 
 export default function Gallery() {
+  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedImage, setSelectedImage] = useState<typeof galleryItems[0] | null>(null);
 
@@ -82,12 +84,12 @@ export default function Gallery() {
     <div className="pt-32 pb-24 bg-surface-light min-h-screen">
       <div className="max-w-7xl mx-auto px-6">
         <header className="mb-16 text-center md:text-left">
-          <p className="font-mono text-xs font-bold text-primary mb-2 tracking-widest uppercase">GALERIA DE PROYECTOS</p>
+          <p className="font-mono text-xs font-bold text-primary mb-2 tracking-widest uppercase">{t('gallery.portfolio')}</p>
           <h1 className="font-headline font-extrabold text-5xl md:text-7xl uppercase leading-[0.95] text-text-main tracking-tighter mb-8">
-            Built With <br/> <span className="text-primary italic">Ventura Supply</span>
+            {t('gallery.title1')} <br/> <span className="text-primary italic">{t('gallery.title2')}</span>
           </h1>
           <p className="max-w-2xl text-text-muted text-lg">
-            See our materials in action across Houston. From large-scale commercial structures to custom residential builds, we provide the backbone for excellence.
+            {t('gallery.desc')}
           </p>
         </header>
 
@@ -97,7 +99,7 @@ export default function Gallery() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-8 py-3 font-headline font-bold uppercase tracking-widest text-sm transition-all border ${
+              className={`px-8 py-3 font-headline font-bold uppercase tracking-widest text-sm transition-all border cursor-pointer ${
                 activeCategory === cat 
                 ? 'bg-black text-primary border-black' 
                 : 'bg-white text-text-muted border-surface-border hover:border-text-main'
@@ -161,7 +163,7 @@ export default function Gallery() {
               onClick={() => setSelectedImage(null)}
             >
               <button 
-                className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors"
+                className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors cursor-pointer"
                 onClick={() => setSelectedImage(null)}
               >
                 <X size={48} strokeWidth={1.5} />
@@ -182,8 +184,8 @@ export default function Gallery() {
                   <h2 className="font-headline font-extrabold text-4xl md:text-6xl text-white uppercase tracking-tighter mb-8 leading-none">
                     {selectedImage.title}
                   </h2>
-                  <button className="btn-primary !px-10 !py-4 flex items-center gap-3">
-                    INQUIRE ABOUT THIS PROJECT <ArrowRight size={20} />
+                  <button className="btn-primary !px-10 !py-4 flex items-center gap-3 cursor-pointer">
+                    {t('gallery.inquire')} <ArrowRight size={20} />
                   </button>
                 </div>
               </div>
@@ -194,10 +196,10 @@ export default function Gallery() {
         {/* Contact CTA */}
         <section className="mt-32 p-12 bg-surface-card border border-surface-border text-center">
           <Camera size={48} className="text-primary mx-auto mb-8" />
-          <h2 className="font-headline font-extrabold text-4xl uppercase text-text-main mb-6">Want your project featured?</h2>
-          <p className="text-text-muted mb-12 max-w-xl mx-auto">We love seeing what our customers build. Send us your project photos and we might feature them in our next catalog update.</p>
-          <a href="#contact" className="inline-block font-headline font-bold uppercase tracking-[0.2em] text-sm hover:text-primary transition-colors">
-            Contact Project Support <ArrowRight size={16} className="inline ml-2" />
+          <h2 className="font-headline font-extrabold text-4xl uppercase text-text-main mb-6">{t('gallery.featured.title')}</h2>
+          <p className="text-text-muted mb-12 max-w-xl mx-auto">{t('gallery.featured.desc')}</p>
+          <a href="#contact" className="inline-block font-headline font-bold uppercase tracking-[0.2em] text-sm hover:text-primary transition-colors cursor-pointer">
+            {t('gallery.featured.btn')} <ArrowRight size={16} className="inline ml-2" />
           </a>
         </section>
       </div>
