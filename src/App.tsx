@@ -121,9 +121,14 @@ const HomeContent = () => {
           <motion.div 
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center gap-2 bg-primary text-black font-mono text-[10px] font-bold px-4 py-1.5 mb-8 tracking-widest cursor-default"
+            className="flex items-center justify-center gap-4 mb-8"
           >
-            <MapPin size={12} /> {t('home.hero.hub')}
+            <div className="inline-flex items-center gap-2 bg-primary text-black font-mono text-[10px] font-bold px-4 py-1.5 tracking-widest cursor-default">
+              <MapPin size={12} /> {t('home.hero.hub')}
+            </div>
+            <div className="inline-flex items-center gap-2 border border-white/20 text-white font-mono text-[10px] font-bold px-4 py-1.5 tracking-widest cursor-default">
+              {t('home.hero.since')}
+            </div>
           </motion.div>
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
@@ -160,37 +165,53 @@ const HomeContent = () => {
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section id="products" className="py-24 bg-surface-light border-b border-surface-border">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6 text-center md:text-left">
-            <div>
-              <p className="font-mono text-xs font-bold text-primary mb-2 tracking-widest uppercase">{t('home.featured.catalog')}</p>
-              <h2 className="font-headline font-extrabold text-5xl uppercase leading-none text-text-main">{t('home.featured.title')}</h2>
-            </div>
-            <p className="max-w-md text-text-muted mx-auto md:mx-0 text-sm md:text-base">
-              {t('home.featured.desc')}
-            </p>
+      {/* Featured Product */}
+      <section id="products" className="py-0 bg-surface-light border-b border-surface-border">
+        <div className="flex flex-col lg:flex-row min-h-[600px]">
+          {/* Photo Side */}
+          <div className="lg:w-1/2 relative min-h-[400px] lg:min-h-full">
+            <img 
+              src="/fotos/syp_lumber.png" 
+              alt="Southern Yellow Pine Lumber" 
+              className="absolute inset-0 w-full h-full object-cover" 
+            />
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {featuredProducts.map((p) => (
-              <div key={p.title} className="group relative overflow-hidden bg-surface-card border border-surface-border">
-                <div className="aspect-video overflow-hidden">
-                  <img src={p.image} alt={p.title} className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700" />
-                </div>
-                <div className="p-8">
-                  <div className="flex justify-between items-start mb-4">
-                    <h3 className="font-headline font-extrabold text-3xl uppercase text-text-main">{p.title}</h3>
-                    <span className="bg-primary/10 text-primary-dark font-mono text-[10px] font-bold px-2 py-1 uppercase">{p.badge}</span>
-                  </div>
-                  <p className="text-text-muted mb-6 leading-relaxed text-sm">{p.desc}</p>
-                  <Link to="/products" className="flex items-center gap-2 font-headline font-bold uppercase text-sm text-text-main hover:text-primary transition-colors cursor-pointer">
-                    {t('home.featured.specs')} <ArrowRight size={16} />
-                  </Link>
-                </div>
-              </div>
-            ))}
+          {/* Content Side */}
+          <div className="lg:w-1/2 p-12 lg:p-24 flex flex-col justify-center bg-white">
+            <div className="max-w-xl">
+              <span className="inline-block bg-[#FACC15] text-black font-mono text-[10px] font-bold px-3 py-1 mb-6 uppercase tracking-widest">
+                {t('home.featured.tag')}
+              </span>
+              <h2 className="font-headline font-extrabold text-4xl md:text-5xl uppercase leading-none text-text-main mb-4">
+                {t('home.featured.headline')}
+              </h2>
+              <p className="text-xl font-headline text-text-muted mb-6 italic">
+                {t('home.featured.subhead')}
+              </p>
+              <p className="text-text-muted mb-8 text-base leading-relaxed">
+                {t('home.featured.body')}
+              </p>
+              
+              <ul className="space-y-4 mb-12">
+                {[1, 2, 3].map((num) => (
+                  <li key={num} className="flex items-center gap-3 text-text-main font-medium text-sm uppercase font-headline tracking-wide">
+                    <ShieldCheck className="text-[#FACC15] w-5 h-5" />
+                    {/* @ts-ignore */}
+                    {t(`home.featured.spec${num}`)}
+                  </li>
+                ))}
+              </ul>
+
+              <a 
+                href="https://drive.google.com" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="inline-flex items-center justify-center bg-[#FACC15] text-black font-headline font-bold uppercase py-4 px-8 hover:bg-yellow-500 transition-colors cursor-pointer w-full sm:w-auto"
+              >
+                {t('home.featured.btn')}
+              </a>
+            </div>
           </div>
         </div>
       </section>
@@ -403,7 +424,7 @@ export default function App() {
         </div>
         
         {/* Navigation */}
-        <nav className="fixed w-full top-8 z-50 bg-white/95 backdrop-blur-md border-b border-surface-border">
+        <nav className="fixed w-full top-8 z-50 bg-white border-b border-surface-border">
           <div className="max-w-7xl mx-auto px-6 h-18 flex items-center justify-between">
             <div className="flex items-center gap-12">
               <Link to="/"><Logo /></Link>

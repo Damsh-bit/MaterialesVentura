@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { useState } from 'react';
 import { useTranslation } from '../contexts/TranslationContext';
-import { Layout, Maximize2, X, ArrowRight, Camera } from 'lucide-react';
+import { Layout, Maximize2, Camera, ArrowRight } from 'lucide-react';
 
 const categories = ["All", "Residential", "Commercial", "Inventory", "Logistics"];
 
@@ -159,34 +159,24 @@ export default function Gallery() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-6 backdrop-blur-sm"
+              className="fixed inset-0 z-[100] bg-black/95 flex items-center justify-center p-6 backdrop-blur-sm cursor-zoom-out"
               onClick={() => setSelectedImage(null)}
             >
-              <button 
-                className="absolute top-8 right-8 text-white/50 hover:text-white transition-colors cursor-pointer"
-                onClick={() => setSelectedImage(null)}
-              >
-                <X size={48} strokeWidth={1.5} />
-              </button>
-              
-              <div className="max-w-6xl w-full flex flex-col items-center gap-8" onClick={(e) => e.stopPropagation()}>
+              <div className="max-w-6xl w-full flex flex-col items-center gap-6" onClick={(e) => e.stopPropagation()}>
                 <motion.img 
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   src={selectedImage.image} 
                   alt={selectedImage.title}
-                  className="max-h-[70vh] w-full object-contain shadow-2xl border border-white/10"
+                  className="max-h-[78vh] w-full object-contain shadow-2xl"
                 />
                 <div className="text-center">
-                  <p className="font-mono text-xs text-primary font-bold uppercase tracking-[0.3em] mb-4">
+                  <p className="font-mono text-xs text-primary font-bold uppercase tracking-[0.3em] mb-3">
                     {selectedImage.category} / {selectedImage.location}
                   </p>
-                  <h2 className="font-headline font-extrabold text-4xl md:text-6xl text-white uppercase tracking-tighter mb-8 leading-none">
+                  <h2 className="font-headline font-extrabold text-3xl md:text-5xl text-white uppercase tracking-tighter leading-none">
                     {selectedImage.title}
                   </h2>
-                  <button className="btn-primary !px-10 !py-4 flex items-center gap-3 cursor-pointer">
-                    {t('gallery.inquire')} <ArrowRight size={20} />
-                  </button>
                 </div>
               </div>
             </motion.div>

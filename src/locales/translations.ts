@@ -11,6 +11,7 @@ export const translations = {
     
     // Home - Hero
     'home.hero.hub': 'HOUSTON BUILDING HUB',
+    'home.hero.since': 'SINCE 2022',
     'home.hero.title1': 'Professional Materials',
     'home.hero.title2': 'For Every Job Site',
     'home.hero.desc1': 'Reliable lumber, siding, and roofing supplies at competitive contractor prices.',
@@ -18,11 +19,15 @@ export const translations = {
     'home.hero.btn_catalog': 'EXPLORE CATALOG',
     'home.hero.btn_pricing': 'LATEST PRICING',
 
-    // Home - Featured
-    'home.featured.catalog': 'CATALOG',
-    'home.featured.title': 'Featured Materials',
-    'home.featured.desc': 'We stock only the highest grade materials tested for the unique demands of the Texas Gulf Coast environment.',
-    'home.featured.specs': 'Specification Sheets',
+    // Home - Featured Product (SYP)
+    'home.featured.tag': 'FEATURED PRODUCT',
+    'home.featured.headline': 'Southern Yellow Pine — Built for the South',
+    'home.featured.subhead': 'The strongest wood for every project',
+    'home.featured.body': 'Southern Yellow Pine is the strongest structural lumber available, ideal for framing, fencing, decking, and load-bearing applications. Trusted by contractors across Houston.',
+    'home.featured.spec1': 'High density & strength',
+    'home.featured.spec2': 'Ideal for framing, fencing & decking',
+    'home.featured.spec3': 'Available in multiple dimensions',
+    'home.featured.btn': 'View Price List ↗',
 
     // Home - Inventory
     'home.inventory.title': 'What We Carry',
@@ -58,7 +63,7 @@ export const translations = {
     'home.pricing.btn_sales': 'CONTACT SALES',
 
     // Footer
-    'footer.desc': 'Houston\'s specialist in structural lumber, engineered wood, and roofing systems. Since 2024, Materiales Ventura has focused on bridging the gap between supply chain efficiency and jobsite reliability.',
+    'footer.desc': 'Houston\'s specialist in structural lumber, engineered wood, and roofing systems. Since 2022, Materiales Ventura has focused on bridging the gap between supply chain efficiency and jobsite reliability.',
     'footer.supply': 'Supply Chain',
     'footer.supply.lumber': 'Lumber & Siding',
     'footer.supply.gallery': 'Project Gallery',
@@ -164,6 +169,7 @@ export const translations = {
     
     // Home - Hero
     'home.hero.hub': 'CENTRO DE CONSTRUCCIÓN EN HOUSTON',
+    'home.hero.since': 'SINCE 2022',
     'home.hero.title1': 'Materiales Profesionales',
     'home.hero.title2': 'Para Cada Obra',
     'home.hero.desc1': 'Madera, revestimiento y materiales de techo confiables a precios competitivos para contratistas.',
@@ -171,11 +177,15 @@ export const translations = {
     'home.hero.btn_catalog': 'EXPLORAR CATÁLOGO',
     'home.hero.btn_pricing': 'PRECIOS ACTUALES',
 
-    // Home - Featured
-    'home.featured.catalog': 'CATÁLOGO',
-    'home.featured.title': 'Materiales Destacados',
-    'home.featured.desc': 'Tenemos en stock solo materiales de la más alta calidad, probados para las exigencias únicas de la costa de Texas.',
-    'home.featured.specs': 'Hojas de Especificación',
+    // Home - Featured Product (SYP)
+    'home.featured.tag': 'PRODUCTO DESTACADO',
+    'home.featured.headline': 'Southern Yellow Pine — Built for the South',
+    'home.featured.subhead': 'La madera más resistente para cada proyecto',
+    'home.featured.body': 'El pino amarillo del sur (SYP) es la madera estructural más fuerte disponible, ideal para entramados, cercas, terrazas y aplicaciones de carga. Confiado por contratistas en todo Houston.',
+    'home.featured.spec1': 'Alta densidad y resistencia',
+    'home.featured.spec2': 'Ideal para estructuras, cercas y terrazas',
+    'home.featured.spec3': 'Disponible en múltiples dimensiones',
+    'home.featured.btn': 'Ver Lista de Precios ↗',
 
     // Home - Inventory
     'home.inventory.title': 'Lo Que Ofrecemos',
@@ -211,7 +221,7 @@ export const translations = {
     'home.pricing.btn_sales': 'CONTACTAR VENTAS',
 
     // Footer
-    'footer.desc': 'El especialista de Houston en madera estructural, madera de ingeniería y sistemas de techo. Desde 2024, Materiales Ventura se enfoca en la eficiencia y confiabilidad en la obra.',
+    'footer.desc': 'El especialista de Houston en madera estructural, madera de ingeniería y sistemas de techo. Desde 2022, Materiales Ventura se enfoca en la eficiencia y confiabilidad en la obra.',
     'footer.supply': 'Suministro',
     'footer.supply.lumber': 'Madera y Revestimiento',
     'footer.supply.gallery': 'Galería de Proyectos',

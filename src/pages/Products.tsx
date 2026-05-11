@@ -8,13 +8,15 @@ import {
   Fence, 
   PlusSquare,
   Search,
-  Filter,
   ArrowRight,
-  Info
+  Info,
+  X,
+  Phone,
+  Mail,
+  CheckCircle2
 } from 'lucide-react';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useTranslation } from '../contexts/TranslationContext';
 
 const categories = [
@@ -38,10 +40,158 @@ const products = [
   { id: 8, name: 'Custom Joist Trusses', category: 'Lumber', span: 'Cerchas', icon: <PencilRuler />, description: 'Pre-engineered trusses built to project specs.' },
 ];
 
+type Product = typeof products[0];
+
+function QuoteModal({ product, onClose }: { product: Product; onClose: () => void }) {
+  const { t } = useTranslation();
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      className="fixed inset-0 z-[200] flex items-center justify-center p-4"
+      onClick={onClose}
+    >
+      {/* Backdrop */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
+
+      {/* Modal */}
+      <motion.div
+        initial={{ opacity: 0, y: 20, scale: 0.97 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        exit={{ opacity: 0, y: 20, scale: 0.97 }}
+        transition={{ type: 'spring', damping: 28, stiffness: 300 }}
+        className="relative bg-white w-full max-w-lg shadow-2xl overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Top accent bar */}
+        <div className="h-1 w-full bg-primary" />
+
+        {/* Close button */}
+        <button
+          onClick={onClose}
+          className="absolute top-5 right-5 text-text-muted hover:text-text-main transition-colors cursor-pointer"
+        >
+          <X size={20} />
+        </button>
+
+        <div className="p-8">
+          {submitted ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="flex flex-col items-center text-center py-8 gap-4"
+            >
+              <CheckCircle2 className="text-primary" size={56} strokeWidth={1.5} />
+              <h3 className="font-headline font-extrabold text-3xl uppercase text-text-main">
+                Quote Requested!
+              </h3>
+              <p className="text-text-muted text-sm leading-relaxed max-w-xs">
+                We'll reach out within 4 business hours with pricing for <strong>{product.name}</strong>.
+              </p>
+              <button
+                onClick={onClose}
+                className="mt-4 font-headline font-bold uppercase text-sm tracking-widest text-primary hover:text-black transition-colors cursor-pointer"
+              >
+                Close
+              </button>
+            </motion.div>
+          ) : (
+            <>
+              {/* Product tag */}
+              <div className="flex items-center gap-3 mb-6 pb-6 border-b border-surface-border">
+                <div className="w-10 h-10 bg-surface-card flex items-center justify-center text-text-muted flex-shrink-0">
+                  {product.icon}
+                </div>
+                <div>
+                  <p className="font-mono text-[9px] font-bold text-primary uppercase tracking-widest mb-0.5">
+                    {product.category}
+                  </p>
+                  <h3 className="font-headline font-extrabold text-xl uppercase text-text-main leading-tight">
+                    {product.name}
+                  </h3>
+                </div>
+              </div>
+
+              <p className="font-mono text-[10px] font-bold text-text-muted uppercase tracking-widest mb-5">
+                {t('nav.get_quote')} / SOLICITAR COTIZACIÓN
+              </p>
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid sm:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="font-mono text-[9px] text-text-muted uppercase tracking-widest">
+                      Name / Nombre
+                    </label>
+                    <input
+                      required
+                      type="text"
+                      placeholder="Full name"
+                      className="w-full bg-surface-card border border-surface-border px-4 py-3 font-headline font-bold text-sm focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="font-mono text-[9px] text-text-muted uppercase tracking-widest">
+                      Phone / Teléfono
+                    </label>
+                    <input
+                      required
+                      type="tel"
+                      placeholder="(000) 000-0000"
+                      className="w-full bg-surface-card border border-surface-border px-4 py-3 font-headline font-bold text-sm focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
+                    />
+                  </div>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="font-mono text-[9px] text-text-muted uppercase tracking-widest">
+                    Quantity & Details / Cantidad y Detalles
+                  </label>
+                  <textarea
+                    required
+                    rows={3}
+                    placeholder={`Dimensions, quantity, delivery needs...`}
+                    className="w-full bg-surface-card border border-surface-border px-4 py-3 font-headline font-bold text-sm focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main resize-none"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="w-full bg-primary text-black font-headline font-bold uppercase py-4 flex items-center justify-center gap-2 hover:bg-black hover:text-primary transition-all cursor-pointer"
+                >
+                  {t('home.contact.form.submit')} <ArrowRight size={18} />
+                </button>
+              </form>
+
+              {/* Quick contact strip */}
+              <div className="mt-6 pt-5 border-t border-surface-border flex items-center justify-center gap-6">
+                <a href="tel:8326148466" className="flex items-center gap-2 font-mono text-[9px] font-bold text-text-muted hover:text-primary transition-colors uppercase tracking-widest cursor-pointer">
+                  <Phone size={12} className="text-primary" /> 832-614-8466
+                </a>
+                <a href="mailto:materialesventura@outlook.com" className="flex items-center gap-2 font-mono text-[9px] font-bold text-text-muted hover:text-primary transition-colors uppercase tracking-widest cursor-pointer">
+                  <Mail size={12} className="text-primary" /> Email Us
+                </a>
+              </div>
+            </>
+          )}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export default function Products() {
   const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const [quoteProduct, setQuoteProduct] = useState<Product | null>(null);
 
   const filteredProducts = products.filter(p => {
     const matchesCategory = activeCategory === "All" || p.category === activeCategory;
@@ -121,9 +271,12 @@ export default function Products() {
               </div>
               
               <div className="pt-6 border-t border-surface-border">
-                <Link to="/contact" className="w-full btn-primary !py-4 !text-sm flex items-center justify-center gap-2 cursor-pointer mt-4">
+                <button
+                  onClick={() => setQuoteProduct(p)}
+                  className="w-full bg-primary text-black font-headline font-bold uppercase py-4 text-sm flex items-center justify-center gap-2 hover:bg-black hover:text-primary transition-all cursor-pointer mt-4"
+                >
                   {t('nav.get_quote')} <ArrowRight size={16} />
-                </Link>
+                </button>
               </div>
             </motion.div>
           ))}
@@ -159,6 +312,13 @@ export default function Products() {
           </div>
         </section>
       </div>
+
+      {/* Quote Modal */}
+      <AnimatePresence>
+        {quoteProduct && (
+          <QuoteModal product={quoteProduct} onClose={() => setQuoteProduct(null)} />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
