@@ -13,7 +13,8 @@ import {
   X,
   Phone,
   Mail,
-  CheckCircle2
+  CheckCircle2,
+  Star
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { useState } from 'react';
@@ -30,6 +31,15 @@ const categories = [
 ];
 
 const products = [
+  { 
+    id: 'syp', 
+    name: 'Southern Yellow Pine (SYP)', 
+    category: 'Lumber', 
+    span: 'Pino Amarillo del Sur', 
+    icon: <Trees />, 
+    description: 'The strongest structural lumber available. Ideal for framing, fencing, decking, and load-bearing applications. Trusted by contractors across Houston.',
+    featured: true 
+  },
   { id: 1, name: 'Premium Douglas Fir 2x4', category: 'Lumber', span: 'Madera de Abeto', icon: <Trees />, description: 'Structural grade lumber for residential framing.' },
   { id: 2, name: 'CDX Plywood 4x8', category: 'Plywood', span: 'Contrachapado', icon: <Layers />, description: 'Standard sheathing for roofs and walls.' },
   { id: 3, name: 'SmartSide Hardboard', category: 'Siding', span: 'Revestimiento', icon: <LayoutIcon />, description: 'Engineered wood siding with advanced durability.' },
@@ -248,32 +258,47 @@ export default function Products() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: idx * 0.05 }}
               key={p.id}
-              className="bg-white border border-surface-border p-8 flex flex-col justify-between group hover:border-primary hover:shadow-xl transition-all h-full"
+              className={`${
+                p.featured 
+                ? 'md:col-span-2 bg-[#111111] text-white border-primary shadow-2xl' 
+                : 'bg-white border-surface-border text-text-main'
+              } border p-8 flex flex-col justify-between group hover:border-primary hover:shadow-xl transition-all h-full relative overflow-hidden`}
             >
+              {p.featured && (
+                <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 -mr-16 -mt-16 rotate-45" />
+              )}
+              
               <div>
                 <div className="flex justify-between items-start mb-6">
-                  <div className="text-text-muted group-hover:text-primary transition-colors">
+                  <div className={`${p.featured ? 'text-primary' : 'text-text-muted group-hover:text-primary'} transition-colors`}>
                     {p.icon}
                   </div>
-                  <span className="font-mono text-[9px] font-bold text-text-muted px-2 py-0.5 border border-surface-border uppercase tracking-widest">
-                    {p.category}
-                  </span>
+                  <div className="flex flex-col items-end gap-2">
+                    {p.featured && (
+                      <span className="flex items-center gap-1 font-mono text-[10px] font-bold text-primary uppercase tracking-[0.2em]">
+                        <Star size={10} fill="currentColor" /> Best Seller
+                      </span>
+                    )}
+                    <span className={`font-mono text-[9px] font-bold ${p.featured ? 'text-neutral-400 border-neutral-700' : 'text-text-muted border-surface-border'} px-2 py-0.5 border uppercase tracking-widest`}>
+                      {p.category}
+                    </span>
+                  </div>
                 </div>
-                <h3 className="font-headline font-extrabold text-2xl uppercase text-text-main leading-tight mb-2 group-hover:text-black">
+                <h3 className={`font-headline font-extrabold text-2xl uppercase ${p.featured ? 'text-white md:text-4xl' : 'text-text-main'} leading-tight mb-2 group-hover:text-primary transition-colors`}>
                   {p.name}
                 </h3>
-                <p className="font-mono text-[10px] text-text-muted uppercase mb-4 tracking-tighter">
+                <p className={`font-mono text-[10px] ${p.featured ? 'text-primary' : 'text-text-muted'} uppercase mb-4 tracking-tighter`}>
                   {p.span}
                 </p>
-                <p className="text-text-muted text-[13px] leading-relaxed mb-6">
+                <p className={`${p.featured ? 'text-neutral-400 text-base' : 'text-text-muted text-[13px]'} leading-relaxed mb-6`}>
                   {p.description}
                 </p>
               </div>
               
-              <div className="pt-6 border-t border-surface-border">
+              <div className={`pt-6 border-t ${p.featured ? 'border-neutral-800' : 'border-surface-border'}`}>
                 <button
                   onClick={() => setQuoteProduct(p)}
-                  className="w-full bg-primary text-black font-headline font-bold uppercase py-4 text-sm flex items-center justify-center gap-2 hover:bg-black hover:text-primary transition-all cursor-pointer mt-4"
+                  className={`w-full ${p.featured ? 'bg-primary text-black hover:bg-white' : 'bg-primary text-black hover:bg-black hover:text-primary'} font-headline font-bold uppercase py-4 text-sm flex items-center justify-center gap-2 transition-all cursor-pointer mt-4`}
                 >
                   {t('nav.get_quote')} <ArrowRight size={16} />
                 </button>
