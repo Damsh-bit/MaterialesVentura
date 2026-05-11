@@ -88,6 +88,9 @@ export const translations = {
     'products.bulk.title2': 'Pricing?',
     'products.bulk.desc': 'For contractors and commercial projects, we offer specialized bulk rates and logistics support.',
     'products.bulk.btn': 'REQUEST BULK QUOTE',
+    'products.syp.name': 'Southern Yellow Pine (SYP)',
+    'products.syp.span': 'Southern Yellow Pine',
+    'products.syp.desc': 'The strongest structural lumber available. Ideal for framing, fencing, decking, and load-bearing applications. Trusted by contractors across Houston.',
 
     // Gallery
     'gallery.portfolio': 'PROJECT GALLERY',
@@ -246,6 +249,9 @@ export const translations = {
     'products.bulk.title2': 'Por Volumen?',
     'products.bulk.desc': 'Para contratistas y proyectos comerciales, ofrecemos tarifas por volumen especializadas y apoyo logístico.',
     'products.bulk.btn': 'SOLICITAR COTIZACIÓN POR VOLUMEN',
+    'products.syp.name': 'Southern Yellow Pine (SYP)',
+    'products.syp.span': 'Pino Amarillo del Sur',
+    'products.syp.desc': 'El pino amarillo del sur (SYP) es la madera estructural más fuerte disponible, ideal para entramados, cercas, terrazas y aplicaciones de carga. Confiado por contratistas en todo Houston.',
 
     // Gallery
     'gallery.portfolio': 'GALERÍA DE PROYECTOS',
