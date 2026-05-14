@@ -19,9 +19,23 @@ export default function Contact() {
   const { t } = useTranslation();
   const [formStatus, setFormStatus] = useState<null | 'success'>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormStatus('success');
+    const formData = new FormData(e.currentTarget);
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+      if (response.ok) {
+        setFormStatus('success');
+      } else {
+        console.error("Form submission failed");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+    }
   };
 
   return (
@@ -58,13 +72,27 @@ export default function Contact() {
                 </button>
               </motion.div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-8">
+              <form 
+                onSubmit={handleSubmit} 
+                className="space-y-8"
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+              >
+                <input type="hidden" name="form-name" value="contact" />
+                <p className="hidden">
+                  <label>
+                    No rellenes: <input name="bot-field" />
+                  </label>
+                </p>
                 <div className="grid sm:grid-cols-2 gap-8">
                   <div className="space-y-1">
                     <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">{t('home.contact.form.name')}</label>
                     <input
                       required
                       type="text"
+                      name="name"
                       placeholder={t('home.contact.form.name_ph')}
                       className="w-full bg-surface-card border-b-2 border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase text-text-main bg-transparent"
                     />
@@ -74,6 +102,7 @@ export default function Contact() {
                     <input
                       required
                       type="tel"
+                      name="phone"
                       placeholder={t('home.contact.form.phone_ph')}
                       className="w-full bg-surface-card border-b-2 border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase text-text-main bg-transparent"
                     />
@@ -83,6 +112,7 @@ export default function Contact() {
                     <input
                       required
                       type="email"
+                      name="email"
                       placeholder={t('home.contact.form.email_ph')}
                       className="w-full bg-surface-card border-b-2 border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase text-text-main bg-transparent"
                     />
@@ -92,6 +122,7 @@ export default function Contact() {
                     <textarea
                       required
                       rows={6}
+                      name="details"
                       placeholder={t('home.contact.form.details_ph')}
                       className="w-full bg-surface-card border-b-2 border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase text-text-main bg-transparent resize-none"
                     />

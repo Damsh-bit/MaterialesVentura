@@ -27,7 +27,7 @@ export const translations = {
     'home.featured.spec1': 'High density & strength',
     'home.featured.spec2': 'Ideal for framing, fencing & decking',
     'home.featured.spec3': 'Available in multiple dimensions',
-    'home.featured.btn': 'View Price List ↗',
+    'home.featured.btn': 'Get a Quote',
 
     // Home - Inventory
     'home.inventory.title': 'What We Carry',
@@ -59,7 +59,7 @@ export const translations = {
     // Home - Pricing CTA
     'home.pricing.title': 'Ready for a Volume Discount?',
     'home.pricing.desc': 'We specialize in bulk supply for large residential and commercial projects. Download our live price list to see why contractors choose Ventura.',
-    'home.pricing.btn_list': 'PRICE LIST',
+    'home.pricing.btn_list': 'REQUEST RATES',
     'home.pricing.btn_sales': 'CONTACT SALES',
 
     // Footer
@@ -109,7 +109,7 @@ export const translations = {
     'pricing.last_updated': 'Last Updated',
     'pricing.notice.title': 'Market Notice',
     'pricing.notice.desc': 'Prices are subject to change based on daily mill rates and availability.',
-    'pricing.btn_pdf': 'DOWNLOAD PDF PRICE LIST',
+    'pricing.btn_pdf': 'REQUEST PRICE LIST',
     'pricing.table.product': 'Product Selection',
     'pricing.table.unit': 'Unit',
     'pricing.table.rate': 'Contractor Rate',
@@ -188,7 +188,7 @@ export const translations = {
     'home.featured.spec1': 'Alta densidad y resistencia',
     'home.featured.spec2': 'Ideal para estructuras, cercas y terrazas',
     'home.featured.spec3': 'Disponible en múltiples dimensiones',
-    'home.featured.btn': 'Ver Lista de Precios ↗',
+    'home.featured.btn': 'Solicitar Cotización',
 
     // Home - Inventory
     'home.inventory.title': 'Lo Que Ofrecemos',
@@ -220,7 +220,7 @@ export const translations = {
     // Home - Pricing CTA
     'home.pricing.title': '¿Listo para un Descuento por Volumen?',
     'home.pricing.desc': 'Nos especializamos en suministros a granel para grandes proyectos residenciales y comerciales. Descarga nuestra lista de precios.',
-    'home.pricing.btn_list': 'LISTA DE PRECIOS',
+    'home.pricing.btn_list': 'SOLICITAR TARIFAS',
     'home.pricing.btn_sales': 'CONTACTAR VENTAS',
 
     // Footer
@@ -270,7 +270,7 @@ export const translations = {
     'pricing.last_updated': 'Última Actualización',
     'pricing.notice.title': 'Aviso de Mercado',
     'pricing.notice.desc': 'Los precios están sujetos a cambios según las tarifas diarias y disponibilidad.',
-    'pricing.btn_pdf': 'DESCARGAR LISTA DE PRECIOS EN PDF',
+    'pricing.btn_pdf': 'SOLICITAR LISTA DE PRECIOS',
     'pricing.table.product': 'Selección de Producto',
     'pricing.table.unit': 'Unidad',
     'pricing.table.rate': 'Tarifa para Contratista',

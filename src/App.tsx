@@ -203,14 +203,12 @@ const HomeContent = () => {
                 ))}
               </ul>
 
-              <a 
-                href="https://drive.google.com" 
-                target="_blank" 
-                rel="noopener noreferrer" 
+              <Link 
+                to="/contact"
                 className="inline-flex items-center justify-center bg-[#FACC15] text-black font-headline font-bold uppercase py-4 px-8 hover:bg-yellow-500 transition-colors cursor-pointer w-full sm:w-auto"
               >
                 {t('home.featured.btn')}
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -377,9 +375,9 @@ const HomeContent = () => {
                   {t('home.pricing.desc')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <button className="bg-black text-white font-headline font-bold text-xl px-12 py-5 uppercase hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2 cursor-pointer">
+                  <Link to="/contact" className="bg-black text-white font-headline font-bold text-xl px-12 py-5 uppercase hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2 cursor-pointer">
                       {t('home.pricing.btn_list')} <ArrowUpRight size={24} />
-                  </button>
+                  </Link>
                   <a href="#contact" className="border-2 border-black text-black font-headline font-bold text-xl px-12 py-5 uppercase hover:bg-black hover:text-white transition-colors flex items-center justify-center cursor-pointer">
                       {t('home.pricing.btn_sales')}
                   </a>

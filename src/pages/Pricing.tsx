@@ -74,9 +74,9 @@ export default function Pricing() {
               <p className="text-text-muted text-sm uppercase font-mono tracking-tighter">{t('pricing.notice.desc')}</p>
             </div>
           </div>
-          <button className="btn-primary !py-3 !px-8 flex items-center gap-2 group whitespace-nowrap cursor-pointer">
+          <Link to="/contact" className="btn-primary !py-3 !px-8 flex items-center gap-2 group whitespace-nowrap cursor-pointer">
             <Download size={20} /> {t('pricing.btn_pdf')}
-          </button>
+          </Link>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">

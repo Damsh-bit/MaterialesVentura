@@ -1,11 +1,11 @@
-import { 
-  Trees, 
-  Layout as LayoutIcon, 
-  Layers, 
-  Ruler, 
-  PencilRuler, 
-  Home, 
-  Fence, 
+import {
+  Trees,
+  Layout as LayoutIcon,
+  Layers,
+  Ruler,
+  PencilRuler,
+  Home,
+  Fence,
   PlusSquare,
   Search,
   ArrowRight,
@@ -31,12 +31,12 @@ const categories = [
 ];
 
 const productsData = [
-  { 
-    id: 'syp', 
-    name: 'products.syp.name', 
-    category: 'Lumber', 
-    span: 'products.syp.span', 
-    icon: <Trees />, 
+  {
+    id: 'syp',
+    name: 'products.syp.name',
+    category: 'Lumber',
+    span: 'products.syp.span',
+    icon: <Trees />,
     description: 'products.syp.desc',
     featured: true,
     isTranslated: true
@@ -57,9 +57,23 @@ function QuoteModal({ product, onClose }: { product: Product; onClose: () => voi
   const { t } = useTranslation();
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
+    const formData = new FormData(e.currentTarget);
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        console.error("Form submission failed");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+    }
   };
 
   const productName = product.isTranslated ? t(product.name as any) : product.name;
@@ -137,7 +151,20 @@ function QuoteModal({ product, onClose }: { product: Product; onClose: () => voi
                 {t('nav.get_quote')} / SOLICITAR COTIZACIÓN
               </p>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form 
+                onSubmit={handleSubmit} 
+                className="space-y-4"
+                name="contact"
+                method="POST"
+                data-netlify="true"
+                data-netlify-honeypot="bot-field"
+              >
+                <input type="hidden" name="form-name" value="contact" />
+                <p className="hidden">
+                  <label>
+                    No rellenes: <input name="bot-field" />
+                  </label>
+                </p>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div className="space-y-1">
                     <label className="font-mono text-[9px] text-text-muted uppercase tracking-widest">
@@ -146,6 +173,7 @@ function QuoteModal({ product, onClose }: { product: Product; onClose: () => voi
                     <input
                       required
                       type="text"
+                      name="name"
                       placeholder="Full name"
                       className="w-full bg-surface-card border border-surface-border px-4 py-3 font-headline font-bold text-sm focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
                     />
@@ -157,6 +185,7 @@ function QuoteModal({ product, onClose }: { product: Product; onClose: () => voi
                     <input
                       required
                       type="tel"
+                      name="phone"
                       placeholder="(000) 000-0000"
                       className="w-full bg-surface-card border border-surface-border px-4 py-3 font-headline font-bold text-sm focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
                     />
@@ -170,6 +199,7 @@ function QuoteModal({ product, onClose }: { product: Product; onClose: () => voi
                   <textarea
                     required
                     rows={3}
+                    name="details"
                     placeholder={`Dimensions, quantity, delivery needs...`}
                     className="w-full bg-surface-card border border-surface-border px-4 py-3 font-headline font-bold text-sm focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main resize-none"
                   />
@@ -210,9 +240,9 @@ export default function Products() {
     const matchesCategory = activeCategory === "All" || p.category === activeCategory;
     const name = p.isTranslated ? t(p.name as any) : p.name;
     const span = p.isTranslated ? t(p.span as any) : p.span;
-    
-    const matchesSearch = name.toLowerCase().includes(searchQuery.toLowerCase()) || 
-                         span.toLowerCase().includes(searchQuery.toLowerCase());
+
+    const matchesSearch = name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      span.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
@@ -223,13 +253,13 @@ export default function Products() {
           <p className="font-mono text-xs font-bold text-primary mb-2 tracking-widest uppercase text-center md:text-left">{t('products.catalog')}</p>
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
             <h1 className="font-headline font-extrabold text-5xl md:text-7xl uppercase leading-[0.95] text-text-main tracking-tighter text-center md:text-left">
-              {t('products.title1')} <br/> <span className="text-primary italic">{t('products.title2')}</span>
+              {t('products.title1')} <br /> <span className="text-primary italic">{t('products.title2')}</span>
             </h1>
             <div className="flex flex-col gap-4 w-full md:w-96">
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" size={18} />
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   placeholder={t('products.search')}
                   className="w-full bg-surface-card border border-surface-border p-4 pl-12 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
                   value={searchQuery}
@@ -245,11 +275,10 @@ export default function Products() {
             <button
               key={cat}
               onClick={() => setActiveCategory(cat)}
-              className={`px-6 py-2 font-headline font-bold uppercase tracking-widest text-sm transition-all border cursor-pointer ${
-                activeCategory === cat 
-                ? 'bg-black text-primary border-black' 
-                : 'bg-white text-text-muted border-surface-border hover:border-text-main'
-              }`}
+              className={`px-6 py-2 font-headline font-bold uppercase tracking-widest text-sm transition-all border cursor-pointer ${activeCategory === cat
+                  ? 'bg-black text-primary border-black'
+                  : 'bg-white text-text-muted border-surface-border hover:border-text-main'
+                }`}
             >
               {cat}
             </button>
@@ -269,16 +298,15 @@ export default function Products() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.05 }}
                 key={p.id}
-                className={`${
-                  p.featured 
-                  ? 'md:col-span-2 bg-[#111111] text-white border-primary shadow-2xl' 
-                  : 'bg-white border-surface-border text-text-main'
-                } border p-8 flex flex-col justify-between group hover:border-primary hover:shadow-xl transition-all h-full relative overflow-hidden`}
+                className={`${p.featured
+                    ? 'md:col-span-2 bg-[#111111] text-white border-primary shadow-2xl'
+                    : 'bg-white border-surface-border text-text-main'
+                  } border p-8 flex flex-col justify-between group hover:border-primary hover:shadow-xl transition-all h-full relative overflow-hidden`}
               >
                 {p.featured && (
                   <div className="absolute top-0 right-0 w-32 h-32 bg-primary/10 -mr-16 -mt-16 rotate-45" />
                 )}
-                
+
                 <div>
                   <div className="flex justify-between items-start mb-6">
                     <div className={`${p.featured ? 'text-primary' : 'text-text-muted group-hover:text-primary'} transition-colors`}>
@@ -305,7 +333,7 @@ export default function Products() {
                     {description}
                   </p>
                 </div>
-                
+
                 <div className={`pt-6 border-t ${p.featured ? 'border-neutral-800' : 'border-surface-border'}`}>
                   <button
                     onClick={() => setQuoteProduct(p)}
@@ -323,8 +351,8 @@ export default function Products() {
           <div className="text-center py-24 border-2 border-dashed border-surface-border">
             <Info className="mx-auto text-text-muted mb-4" size={48} />
             <p className="font-headline font-bold text-2xl uppercase text-text-muted">{t('products.no_results')}</p>
-            <button 
-              onClick={() => {setActiveCategory("All"); setSearchQuery("");}}
+            <button
+              onClick={() => { setActiveCategory("All"); setSearchQuery(""); }}
               className="mt-6 text-primary font-headline font-bold uppercase hover:underline cursor-pointer"
             >
               {t('products.clear_filters')}
@@ -337,7 +365,7 @@ export default function Products() {
           <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12 text-center md:text-left">
             <div className="max-w-2xl">
               <h2 className="font-headline font-extrabold text-4xl md:text-5xl text-white uppercase leading-none mb-6">
-                {t('products.bulk.title1')} <br/> <span className="text-primary italic">{t('products.bulk.title2')}</span>
+                {t('products.bulk.title1')} <br /> <span className="text-primary italic">{t('products.bulk.title2')}</span>
               </h2>
               <p className="text-neutral-400 text-lg">
                 {t('products.bulk.desc')}
