@@ -166,7 +166,12 @@ function QuoteModal({ product, onClose }: { product: Product; onClose: () => voi
                   </label>
                 </p>
                 <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-1">
+                  <motion.div 
+                    initial={{ opacity: 0, x: -10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="space-y-1"
+                  >
                     <label className="font-mono text-[9px] text-text-muted uppercase tracking-widest">
                       Name / Nombre
                     </label>
@@ -177,8 +182,13 @@ function QuoteModal({ product, onClose }: { product: Product; onClose: () => voi
                       placeholder="Full name"
                       className="w-full bg-surface-card border border-surface-border px-4 py-3 font-headline font-bold text-sm focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
                     />
-                  </div>
-                  <div className="space-y-1">
+                  </motion.div>
+                  <motion.div 
+                    initial={{ opacity: 0, x: 10 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="space-y-1"
+                  >
                     <label className="font-mono text-[9px] text-text-muted uppercase tracking-widest">
                       Phone / Teléfono
                     </label>
@@ -189,10 +199,15 @@ function QuoteModal({ product, onClose }: { product: Product; onClose: () => voi
                       placeholder="(000) 000-0000"
                       className="w-full bg-surface-card border border-surface-border px-4 py-3 font-headline font-bold text-sm focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
                     />
-                  </div>
+                  </motion.div>
                 </div>
 
-                <div className="space-y-1">
+                <motion.div 
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.3 }}
+                  className="space-y-1"
+                >
                   <label className="font-mono text-[9px] text-text-muted uppercase tracking-widest">
                     Quantity & Details / Cantidad y Detalles
                   </label>
@@ -203,7 +218,7 @@ function QuoteModal({ product, onClose }: { product: Product; onClose: () => voi
                     placeholder={`Dimensions, quantity, delivery needs...`}
                     className="w-full bg-surface-card border border-surface-border px-4 py-3 font-headline font-bold text-sm focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main resize-none"
                   />
-                </div>
+                </motion.div>
 
                 <button
                   type="submit"

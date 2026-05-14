@@ -58,6 +58,27 @@ const Logo = () => (
 
 const HomeContent = () => {
   const { t } = useTranslation();
+  const [formStatus, setFormStatus] = useState<null | 'success'>(null);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    try {
+      const response = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams(formData as any).toString(),
+      });
+      if (response.ok) {
+        setFormStatus('success');
+      } else {
+        console.error("Form submission failed");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+    }
+  };
+
   const inventory = [
     { name: 'Lumber', span: 'MADERA', icon: <Trees className="w-6 h-6" /> },
     { name: 'Siding', span: 'REVESTIMIENTO', icon: <Layout className="w-6 h-6" /> },
@@ -320,46 +341,123 @@ const HomeContent = () => {
 
             {/* Right: Form */}
             <div className="p-12 lg:w-3/5 bg-white">
-              <form className="grid sm:grid-cols-2 gap-8">
-                <div className="space-y-1">
-                  <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">{t('home.contact.form.name')}</label>
-                  <input 
-                    type="text" 
-                    placeholder={t('home.contact.form.name_ph')}
-                    className="w-full bg-surface-card border border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
-                  />
-                </div>
-                <div className="space-y-1">
-                  <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">{t('home.contact.form.phone')}</label>
-                  <input 
-                    type="tel" 
-                    placeholder={t('home.contact.form.phone_ph')}
-                    className="w-full bg-surface-card border border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
-                  />
-                </div>
-                <div className="sm:col-span-2 space-y-1">
-                  <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">{t('home.contact.form.email')}</label>
-                  <input 
-                    type="email" 
-                    placeholder={t('home.contact.form.email_ph')}
-                    className="w-full bg-surface-card border border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
-                  />
-                </div>
-                <div className="sm:col-span-2 space-y-1">
-                  <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">{t('home.contact.form.details')}</label>
-                  <textarea 
-                    rows={6}
-                    placeholder={t('home.contact.form.details_ph')}
-                    className="w-full bg-surface-card border border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main resize-none"
-                  />
-                </div>
-                <div className="sm:col-span-2">
-                  <button className="btn-primary w-full py-6 text-2xl flex items-center justify-center gap-4 group cursor-pointer">
-                    {t('home.contact.form.submit')} <ArrowRight size={28} className="group-hover:translate-x-2 transition-transform" />
+              {formStatus === 'success' ? (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="h-full flex flex-col items-center justify-center text-center space-y-6 py-12"
+                >
+                  <div className="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center">
+                    <CheckCircle2 size={40} />
+                  </div>
+                  <h2 className="font-headline font-extrabold text-4xl uppercase text-text-main">{t('contact.success.title')}</h2>
+                  <p className="text-text-muted max-w-sm mx-auto">
+                    {t('contact.success.desc')}
+                  </p>
+                  <button
+                    onClick={() => setFormStatus(null)}
+                    className="font-headline font-bold uppercase tracking-widest text-sm text-primary hover:text-black transition-colors cursor-pointer"
+                  >
+                    {t('contact.success.btn')}
                   </button>
-                  <p className="text-center text-text-muted text-[10px] mt-4 font-mono uppercase tracking-tighter opacity-50">{t('home.contact.form.terms')}</p>
-                </div>
-              </form>
+                </motion.div>
+              ) : (
+                <form 
+                  onSubmit={handleSubmit}
+                  className="grid sm:grid-cols-2 gap-8"
+                  name="contact"
+                  method="POST"
+                  data-netlify="true"
+                  data-netlify-honeypot="bot-field"
+                >
+                  <input type="hidden" name="form-name" value="contact" />
+                  <p className="hidden">
+                    <label>
+                      No rellenes: <input name="bot-field" />
+                    </label>
+                  </p>
+                  
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    className="space-y-1"
+                  >
+                    <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">{t('home.contact.form.name')}</label>
+                    <input 
+                      required
+                      type="text" 
+                      name="name"
+                      placeholder={t('home.contact.form.name_ph')}
+                      className="w-full bg-surface-card border border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
+                    />
+                  </motion.div>
+                  
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 }}
+                    className="space-y-1"
+                  >
+                    <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">{t('home.contact.form.phone')}</label>
+                    <input 
+                      required
+                      type="tel" 
+                      name="phone"
+                      placeholder={t('home.contact.form.phone_ph')}
+                      className="w-full bg-surface-card border border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
+                    />
+                  </motion.div>
+                  
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 }}
+                    className="sm:col-span-2 space-y-1"
+                  >
+                    <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">{t('home.contact.form.email')}</label>
+                    <input 
+                      required
+                      type="email" 
+                      name="email"
+                      placeholder={t('home.contact.form.email_ph')}
+                      className="w-full bg-surface-card border border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
+                    />
+                  </motion.div>
+                  
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 }}
+                    className="sm:col-span-2 space-y-1"
+                  >
+                    <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">{t('home.contact.form.details')}</label>
+                    <textarea 
+                      required
+                      rows={6}
+                      name="details"
+                      placeholder={t('home.contact.form.details_ph')}
+                      className="w-full bg-surface-card border border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main resize-none"
+                    />
+                  </motion.div>
+                  
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.4 }}
+                    className="sm:col-span-2"
+                  >
+                    <button type="submit" className="btn-primary w-full py-6 text-2xl flex items-center justify-center gap-4 group cursor-pointer">
+                      {t('home.contact.form.submit')} <ArrowRight size={28} className="group-hover:translate-x-2 transition-transform" />
+                    </button>
+                    <p className="text-center text-text-muted text-[10px] mt-4 font-mono uppercase tracking-tighter opacity-50">{t('home.contact.form.terms')}</p>
+                  </motion.div>
+                </form>
+              )}
             </div>
           </div>
         </div>

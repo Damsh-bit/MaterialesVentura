@@ -87,7 +87,12 @@ export default function Contact() {
                   </label>
                 </p>
                 <div className="grid sm:grid-cols-2 gap-8">
-                  <div className="space-y-1">
+                  <motion.div 
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="space-y-1"
+                  >
                     <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">{t('home.contact.form.name')}</label>
                     <input
                       required
@@ -96,8 +101,13 @@ export default function Contact() {
                       placeholder={t('home.contact.form.name_ph')}
                       className="w-full bg-surface-card border-b-2 border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase text-text-main bg-transparent"
                     />
-                  </div>
-                  <div className="space-y-1">
+                  </motion.div>
+                  <motion.div 
+                    initial={{ opacity: 0, x: 20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="space-y-1"
+                  >
                     <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">{t('home.contact.form.phone')}</label>
                     <input
                       required
@@ -106,8 +116,13 @@ export default function Contact() {
                       placeholder={t('home.contact.form.phone_ph')}
                       className="w-full bg-surface-card border-b-2 border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase text-text-main bg-transparent"
                     />
-                  </div>
-                  <div className="sm:col-span-2 space-y-1">
+                  </motion.div>
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="sm:col-span-2 space-y-1"
+                  >
                     <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">{t('home.contact.form.email')}</label>
                     <input
                       required
@@ -116,8 +131,13 @@ export default function Contact() {
                       placeholder={t('home.contact.form.email_ph')}
                       className="w-full bg-surface-card border-b-2 border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase text-text-main bg-transparent"
                     />
-                  </div>
-                  <div className="sm:col-span-2 space-y-1">
+                  </motion.div>
+                  <motion.div 
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                    className="sm:col-span-2 space-y-1"
+                  >
                     <label className="font-mono text-[10px] text-text-muted uppercase tracking-widest">{t('home.contact.form.details')}</label>
                     <textarea
                       required
@@ -126,7 +146,7 @@ export default function Contact() {
                       placeholder={t('home.contact.form.details_ph')}
                       className="w-full bg-surface-card border-b-2 border-surface-border p-4 font-headline font-bold text-lg focus:outline-none focus:border-primary transition-colors uppercase text-text-main bg-transparent resize-none"
                     />
-                  </div>
+                  </motion.div>
                 </div>
                 <button type="submit" className="btn-primary w-full !py-6 text-2xl group cursor-pointer">
                   {t('home.contact.form.submit')} <ArrowRight size={28} className="group-hover:translate-x-2 transition-transform" />
