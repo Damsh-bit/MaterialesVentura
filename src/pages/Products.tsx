@@ -160,6 +160,7 @@ function QuoteModal({ product, onClose }: { product: Product; onClose: () => voi
                 data-netlify-honeypot="bot-field"
               >
                 <input type="hidden" name="form-name" value="contact" />
+                <input type="hidden" name="product_name" value={productName} />
                 <p className="hidden">
                   <label>
                     No rellenes: <input name="bot-field" />
@@ -197,6 +198,24 @@ function QuoteModal({ product, onClose }: { product: Product; onClose: () => voi
                       type="tel"
                       name="phone"
                       placeholder="(000) 000-0000"
+                      className="w-full bg-surface-card border border-surface-border px-4 py-3 font-headline font-bold text-sm focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
+                    />
+                  </motion.div>
+                  
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.25 }}
+                    className="sm:col-span-2 space-y-1"
+                  >
+                    <label className="font-mono text-[9px] text-text-muted uppercase tracking-widest">
+                      Email / Correo
+                    </label>
+                    <input
+                      required
+                      type="email"
+                      name="email"
+                      placeholder="email@example.com"
                       className="w-full bg-surface-card border border-surface-border px-4 py-3 font-headline font-bold text-sm focus:outline-none focus:border-primary transition-colors uppercase placeholder:text-neutral-300 text-text-main"
                     />
                   </motion.div>
